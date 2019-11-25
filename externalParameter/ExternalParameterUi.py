@@ -109,7 +109,10 @@ class ExternalParameterControlModel(CategoryTreeModel):
         
     def setValueFollowup(self, inst, targetValue=None):
         try:
-            value = targetValue or inst.targetValue
+            if targetValue is None:
+                value = inst.targetValue
+            else:
+                value = targetValue
             logger = logging.getLogger(__name__)
             logger.debug("setValueFollowup {0}".format(inst.value))
             if not inst.setValue(value):
