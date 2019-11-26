@@ -196,7 +196,7 @@ if DC_Controller_Enabled:
             self.dc_client = FourRodDCControllerClient(address=ip_addr + ':' + port)
             
             # self.initializeChannelsToExternals()
-            # self.initOutput()
+            self.initOutput()
             self.qtHelper = qtHelper()
             self.newData = self.qtHelper.newData
 
@@ -221,6 +221,7 @@ if DC_Controller_Enabled:
             else:
                 v_channel = self._outputLookup[channel]
                 voltage = self.dc_client.get_volt_adc(v_channel)
+                voltage = round(voltage,4)
                 return Q(voltage, 'V')
 
         def connectedInstruments(self):
