@@ -7,3 +7,6 @@
 [submodule "QITI_DC_Voltage_Control"]
 	path = QITI_DC_Voltage_Control
 	url = https://github.com/QITI/DC_Voltage_Control
+[submodule "rf_controller"]
+	path = rf_controller
+	url = https://github.com/QITI/rf_controller.git

@@ -194,7 +194,7 @@ if DC_Controller_Enabled:
             ip_addr = instrument.get('ipAddress')
             port = instrument.get('port')
             self.dc_client = FourRodDCControllerClient(address=ip_addr + ':' + port)
-            
+
             # self.initializeChannelsToExternals()
             self.initOutput()
             self.qtHelper = qtHelper()
@@ -202,17 +202,18 @@ if DC_Controller_Enabled:
 
         def setValue(self, channel, v):
             if channel == 'Enable Remote Control':
-                v = v.m_as('')
-                v = int(v)
-                if v not in (0, 1, 255):
+                v_value = v.m_as('')
+                v_value = int(v_value)
+                if v_value not in (0, 1, 255):
                     raise ValueError("Not an available mode!!!!!")
-                self.dc_client.set_mode_all(v)
+                self.dc_client.set_mode_all(v_value)
             else:
-                v = v.m_as('V')
-                v = float(v)
+                v_value = v.m_as('V')
+                v_value = float(v_value)
                 v_channel = self._outputLookup[channel]
-                print(v_channel, v)
-                self.dc_client.set_volt(v_channel, v)
+                print(v_channel, v_value)
+                self.dc_client.set_volt(v_channel, v_value)
+            return v
 
         def getExternalValue(self, channel=None):
             if channel == 'Enable Remote Control':
@@ -221,7 +222,7 @@ if DC_Controller_Enabled:
             else:
                 v_channel = self._outputLookup[channel]
                 voltage = self.dc_client.get_volt_adc(v_channel)
-                voltage = round(voltage,4)
+                voltage = round(voltage, 4)
                 return Q(voltage, 'V')
 
         def connectedInstruments(self):
@@ -229,3 +230,78 @@ if DC_Controller_Enabled:
             instrument_list = project.hardware.get('QITI Four rod DC Controller').keys()
             return instrument_list
 
+rfcontroller_enabled = project.isEnabled('hardware', 'QITI RF Controller')
+
+if rfcontroller_enabled:
+    try:
+        from rf_controller.rf_controller.rf_controller_client import RFControllerClient
+    except ImportError:
+        importErrorPopup("RF Controller")
+
+
+    class RFContrller(ExternalParameterBase):
+        className = "RF Controller"
+        _outputChannels = OrderedDict([
+            ("frequency_cooling_eom", 'MHz'),
+            ("frequency_detection_aom", 'MHz'),
+            ("frequency_repump_eom", 'MHz'),
+            ("frequency_cooling_aom", 'MHz'),
+            ("power_cooling_eom", ''),
+            ("power_detection_aom", ''),
+            ("power_repump_eom", ''),
+            ("power_cooling_aom", ''),
+        ])
+
+        _outputLookup = {
+            'frequency_cooling_eom': ("four_rod_cooling_eom", "frequency"),
+            'frequency_detection_aom': ("four_rod_detection_aom", "frequency"),
+            'frequency_repump_eom': ("four_rod_repump_eom", "frequency"),
+            'frequency_cooling_aom': ("four_rod_cooling_aom", "frequency"),
+            'power_cooling_eom': ("four_rod_cooling_eom", "power"),
+            'power_detection_aom': ("four_rod_detection_aom", "power"),
+            'power_repump_eom': ("four_rod_repump_eom", "power"),
+            'power_cooling_aom': ("four_rod_cooling_aom", "power"),
+        }
+
+        # TODO: pint doesn't support pint. Modify pint?
+        _unitLookup = {
+            "frequency": "Hz",
+            "power": ""
+        }
+
+        _typeLookup = {
+            "frequency": int,
+            "power": float
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI RF Controller')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = RFControllerClient(ip_addr + ':' + port)
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            rf_channel, parameter_name = self._outputLookup[channel]
+            parameter = v.m_as(self._unitLookup[parameter_name])
+            parameter = self._typeLookup[parameter_name](parameter)
+            getattr(self.client, "set_" + parameter_name)(rf_channel, parameter)
+            return v
+
+        def getExternalValue(self, channel=None):
+            rf_channel, parameter_name = self._outputLookup[channel]
+            parameter = getattr(self.client, "get_" + parameter_name)(rf_channel)
+            return Q(parameter, self._unitLookup[parameter_name])
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI RF Controller').keys()
+            return instrument_list

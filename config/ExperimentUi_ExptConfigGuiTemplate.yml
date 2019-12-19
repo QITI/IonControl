@@ -105,3 +105,9 @@ hardware:
     fields:
         ipAddress: str
         port: str
+
+  QITI RF Controller:
+    description: Interface with a Raspberry Pi server that controls the PLL RF devices. Check https://github.com/QITI/rf_controller
+    fields:
+      ipAddress: str
+      port: str
