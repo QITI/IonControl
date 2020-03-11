@@ -239,7 +239,7 @@ if rfcontroller_enabled:
         importErrorPopup("RF Controller")
 
 
-    class RFContrller(ExternalParameterBase):
+    class RFController(ExternalParameterBase):
         className = "RF Controller"
         _outputChannels = OrderedDict([
             ("frequency_cooling_eom", 'MHz'),
@@ -252,6 +252,7 @@ if rfcontroller_enabled:
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
             ("power_optpump_eom", ''),
+            ("output_state_cooling_eom",'')
         ])
 
         _outputLookup = {
@@ -265,17 +266,25 @@ if rfcontroller_enabled:
             'power_repump_eom': ("four_rod_repump_eom", "power"),
             'power_cooling_aom': ("four_rod_cooling_aom", "power"),
             'power_optpump_eom': ("four_rod_optpump_eom", "power"),
+            'output_state_cooling_eom': ("four_rod_cooling_eom", "output_state")
         }
 
         # TODO: pint doesn't support pint. Modify pint?
         _unitLookup = {
             "frequency": "Hz",
-            "power": ""
+            "power": "",
+            "output_state":""
         }
 
-        _typeLookup = {
+        _setTypeLookup = {
             "frequency": int,
-            "power": float
+            "power": float,
+            "output_state":bool
+        }
+        _getTypeLookup = {
+            "frequency": int,
+            "power": float,
+            "output_state":int
         }
 
         def __init__(self, name, config, globalDict, instrument):
@@ -296,13 +305,14 @@ if rfcontroller_enabled:
         def setValue(self, channel, v):
             rf_channel, parameter_name = self._outputLookup[channel]
             parameter = v.m_as(self._unitLookup[parameter_name])
-            parameter = self._typeLookup[parameter_name](parameter)
+            parameter = self._setTypeLookup[parameter_name](parameter)
             getattr(self.client, "set_" + parameter_name)(rf_channel, parameter)
             return v
 
         def getExternalValue(self, channel=None):
             rf_channel, parameter_name = self._outputLookup[channel]
             parameter = getattr(self.client, "get_" + parameter_name)(rf_channel)
+            parameter = self._getTypeLookup[parameter_name](parameter)
             return Q(parameter, self._unitLookup[parameter_name])
 
         def connectedInstruments(self):
