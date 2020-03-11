@@ -246,10 +246,12 @@ if rfcontroller_enabled:
             ("frequency_detection_aom", 'MHz'),
             ("frequency_repump_eom", 'MHz'),
             ("frequency_cooling_aom", 'MHz'),
+            ("frequency_optpump_eom", 'MHz'),
             ("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
+            ("power_optpump_eom", ''),
         ])
 
         _outputLookup = {
@@ -257,10 +259,12 @@ if rfcontroller_enabled:
             'frequency_detection_aom': ("four_rod_detection_aom", "frequency"),
             'frequency_repump_eom': ("four_rod_repump_eom", "frequency"),
             'frequency_cooling_aom': ("four_rod_cooling_aom", "frequency"),
+            'frequency_optpump_eom': ("four_rod_optpump_eom", "frequency"),
             'power_cooling_eom': ("four_rod_cooling_eom", "power"),
             'power_detection_aom': ("four_rod_detection_aom", "power"),
             'power_repump_eom': ("four_rod_repump_eom", "power"),
             'power_cooling_aom': ("four_rod_cooling_aom", "power"),
+            'power_optpump_eom': ("four_rod_optpump_eom", "power"),
         }
 
         # TODO: pint doesn't support pint. Modify pint?
