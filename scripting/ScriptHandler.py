@@ -55,6 +55,10 @@ class ScriptHandler(QtCore.QObject):
         self.script.locationSignal.connect( self.onLocation )
         self.script.exceptionSignal.connect( self.onException )
         self.script.consoleSignal.connect( self.onConsoleSignal )
+        
+        #shutter signals
+        
+        self.script.setShutterSignal.connect(self.onSetShutter)
 
         #action signals
         self.script.setGlobalSignal.connect(self.onSetGlobal)
@@ -67,7 +71,9 @@ class ScriptHandler(QtCore.QObject):
         self.script.setAnalysisSignal.connect(self.onSetAnalysis)
         self.script.plotPointSignal.connect(self.onPlotPoint)
         self.script.plotListSignal.connect(self.onPlotList)
+        self.script.plotImageSignal.connect(self.onPlotImage)
         self.script.addPlotSignal.connect(self.onAddPlot)
+        self.script.addImagePlotSignal.connect(self.onAddImagePlot)
         self.script.pauseScanSignal.connect(self.onPauseScan)
         self.script.stopScanSignal.connect(self.onStopScan)
         self.script.abortScanSignal.connect(self.onAbortScan)
@@ -151,6 +157,25 @@ class ScriptHandler(QtCore.QObject):
             message = "Global variable {0} set to {1} {2}".format(name, value, unit)
             error = False
         return (error, message)
+    
+    @QtCore.pyqtSlot(int, bool)
+    @scriptCommand
+    def onSetShutter(self, index, value):
+        """Set shutter 'index' to 'value'"""
+        index = int(index)
+        value = bool(value)
+        shutter = self.experimentUi.pulser.shutter
+        mask = 1 << index 
+        shutter =  (shutter & ~mask) | ((value << index) & mask) 
+        setattr(self.experimentUi.pulser,'shutter',shutter)
+        return (False,'Set shutter {index} to {value}'.format(index=index,value=value))
+        
+    def getShutter(self,index):
+        """Returns the current value of the shutter"""
+        shutter = self.experimentUi.pulser.shutter
+        value = shutter >> index & 1
+        return bool(value)
+    
 
     @QtCore.pyqtSlot(str, str)
     @scriptCommand
@@ -187,6 +212,10 @@ class ScriptHandler(QtCore.QObject):
         if name in self.globalVariablesUi.globalDict.keys():
             return self.globalVariablesUi.globalDict[name]
         return ScriptException("Global '{}' does not exist!".format(name))
+    
+     
+    
+    
 
     @QtCore.pyqtSlot(list)
     @scriptCommand
@@ -332,6 +361,17 @@ class ScriptHandler(QtCore.QObject):
         error = False
         return (error, message)
     
+    @QtCore.pyqtSlot(str)
+    @scriptCommand
+    def onAddImagePlot(self, name):
+        if name not in list(self.scanExperiment.imagePlotDict.keys()):
+            self.scanExperiment.addImagePlot(str(name))
+            message = 'Plot {0} added'.format(name)
+        else:
+            message = 'Plot {0} already exists'.format(name)
+        error = False
+        return (error, message)
+    
     @QtCore.pyqtSlot(list)
     @scriptCommand
     def onCreateTrace(self, traceCreationData):
@@ -413,6 +453,16 @@ class ScriptHandler(QtCore.QObject):
         """Plot [x1, x2,...], [y1, y2,...] to traceName"""
         traceName = str(traceName)
         error, message = self.plotList(xList, yList, traceName, overwrite, plotStyle=plotStyle)
+        return (error, message)
+        
+    @QtCore.pyqtSlot(numpy.ndarray, str)
+    @scriptCommand
+    def onPlotImage(self,image_array, plotname):
+        plotname = str(plotname)
+        image_plot = self.scanExperiment.imagePlotDict[plotname]['image_item']
+        image_plot.setImage(image_array)
+        error = False
+        message = 'Image plotted'
         return (error, message)
         
     def plotList(self, xList, yList, traceName, overwrite=False, plotStyle=-1):

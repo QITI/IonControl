@@ -18,6 +18,7 @@ import functools
 import logging
 import time
 from pathlib import Path
+from pyqtgraph import ImageItem, GraphicsLayoutWidget
 
 import itertools
 
@@ -190,6 +191,7 @@ class ScanExperiment(ScanExperimentForm, MainWindowWidget.MainWindowWidget):
         self.area = DockArea()
         self.setCentralWidget(self.area)
         self.plotDict = dict()
+        self.imagePlotDict = dict()
         axesType = self.config.get( self.experimentName+'.axesType', defaultdict( lambda: False ))
 
         self.requiredPlotNames = ["Scan Data", "Histogram", "Timestamps"] if self.timestampsEnabled else ["Scan Data", "Histogram"]
@@ -842,6 +844,23 @@ class ScanExperiment(ScanExperimentForm, MainWindowWidget.MainWindowWidget):
             self.area.addDock(dock, "bottom")
             dock.addWidget(widget)
             self.plotDict[name] = {"dock":dock, "widget":widget, "view":view}
+            self.evaluationControlWidget.plotnames.append(name)
+            self.saveConfig() #In case the program suddenly shuts down
+            self.plotsChanged.emit()
+        else:
+            logging.getLogger(__name__).warning("Plot '{}' already exists.".format(name))
+    
+    def addImagePlot(self, name):
+        if name not in self.plotDict:
+            dock = Dock(name)
+            widget = GraphicsLayoutWidget()
+            view = widget.addPlot(title=name)
+            img = ImageItem()
+            view.addItem(img)
+            #view = widget._graphicsView
+            self.area.addDock(dock, "bottom")
+            dock.addWidget(widget)
+            self.imagePlotDict[name] = {"dock":dock, "widget":widget, "view":view, "image_item":img}
             self.evaluationControlWidget.plotnames.append(name)
             self.saveConfig() #In case the program suddenly shuts down
             self.plotsChanged.emit()

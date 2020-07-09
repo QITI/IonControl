@@ -10,6 +10,7 @@ import inspect
 import traceback
 import time
 from pathlib import Path
+import numpy
 
 class ScriptException(Exception):
     pass
@@ -48,6 +49,8 @@ class Script(QtCore.QThread):
     pauseScanSignal = QtCore.pyqtSignal()
     stopScanSignal = QtCore.pyqtSignal()
     
+    setShutterSignal = QtCore.pyqtSignal(int,bool) #args: index, value
+    
     setGlobalSignal = QtCore.pyqtSignal(str, float, str) #args: name, value, unit
     addGlobalSignal = QtCore.pyqtSignal(str, float, str) #args: name, value, unit
     startScanSignal = QtCore.pyqtSignal(list)  # args: globalOverrides list
@@ -56,7 +59,9 @@ class Script(QtCore.QThread):
     setAnalysisSignal = QtCore.pyqtSignal(str) #arg: analysis name
     plotPointSignal = QtCore.pyqtSignal(float, float, str, int) #args: x, y, tracename, plotStyle
     plotListSignal = QtCore.pyqtSignal(list, list, str, bool, int) #args: xList, yList, tracename, overwrite, plotStyle
+    plotImageSignal = QtCore.pyqtSignal(numpy.ndarray, str) #args: image array, plotname
     addPlotSignal = QtCore.pyqtSignal(str) #arg: plot name
+    addImagePlotSignal = QtCore.pyqtSignal(str) #arg: plot name
     abortScanSignal = QtCore.pyqtSignal()
     createTraceSignal = QtCore.pyqtSignal(list) #arg: trace creation data
     closeTraceSignal = QtCore.pyqtSignal(str) #arg: trace to close
@@ -113,6 +118,7 @@ class Script(QtCore.QThread):
         self.data = dict()
         self.allData = dict()
         self.exception = None
+        
 
     @QtCore.pyqtProperty(str)
     def shortname(self):
@@ -234,7 +240,7 @@ class Script(QtCore.QThread):
         if isinstance(self.genericResult, ScriptException):
             self.exception = self.genericResult
         return self.genericResult
-
+    
     @scriptFunction()
     def addGlobal(self, name, value, unit):
         """addGlobal(name, value, unit)
@@ -247,6 +253,34 @@ class Script(QtCore.QThread):
             value (float): value to set it to
             unit (str): unit to use"""
         self.addGlobalSignal.emit(name, value, unit)
+    
+    
+    @scriptFunction()
+    def setShutter(self, index, value):
+        """setShutter(index, value)
+        set shutter of 'index' (can be found from the shutter table) to value.
+
+        This is equivalent to setting the shutter in the shutters table.
+
+        Args:
+            index (int): index of the shutter to change
+            value (bool): value to set it to
+
+        Raises:
+            ScriptException: if unable to set the shutter"""
+        self.setShutterSignal.emit(index, value)
+
+    @scriptFunction(waitForGui=False)
+    def getShutter(self, index):
+        """getShutter(index)
+        get current value of shutter 'index'. index can be found from the shutter table"""
+        self.genericCallSignal.emit('getShutter', (index,), dict())
+        self.genericWait.wait(self.mutex)
+        if isinstance(self.genericResult, ScriptException):
+            self.exception = self.genericResult
+        return self.genericResult
+    
+        
         
     @scriptFunction()
     def pauseScript(self):
@@ -395,6 +429,30 @@ class Script(QtCore.QThread):
         self.plotListSignal.emit(xList, yList, traceName, overwrite, plotStyle)
         
     @scriptFunction()
+    def plotImage(self,image_arr,plotname):
+        """plotList(xList, yList, traceName, overwrite=False, plotStyle=-1)
+        Plot a set of points given in xList, yList to trace traceName.
+
+        Args:
+            x (list[float]): x coordinates
+            y (list[float]): y coordinates
+            traceName (str): name of trace to use
+            overwrite (bool): if True, overwrite existing data
+            plotStyle (int): plot with lines, points, etc...
+                        0: lines
+                        1: points
+                        2: linespoints
+                        3: lines errors
+                        4: points errors
+                        5: linespoints errors
+                otherwise: GUI default
+
+        Raises:
+            ScriptException: if traceName is not a trace
+            ScriptException: if x and y are of unequal lengths"""
+        self.plotImageSignal.emit(image_arr,plotname)
+        
+    @scriptFunction()
     def addPlot(self, name):
         """addPlot(name)
         Add a plot named "name".
@@ -404,6 +462,17 @@ class Script(QtCore.QThread):
         Args:
             name (str): name of plot to add"""
         self.addPlotSignal.emit(name)
+    
+    @scriptFunction()
+    def addImagePlot(self, name):
+        """addPlot(name)
+        Add a plot named "name".
+         
+        This is equivalent to clicking "add plot" on the experiment GUI. If 'name' already exists, does nothing.
+        
+        Args:
+            name (str): name of plot to add"""
+        self.addImagePlotSignal.emit(name)
 
     @scriptFunction()
     def pauseScan(self):
