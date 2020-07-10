@@ -22,6 +22,12 @@ import pytz
 from persist.MeasurementLog import  Measurement, Parameter, Result
 from copy import deepcopy
 
+from QITI_communicate_instruments.flir.black_fly_camera import BlackFlyCamera
+import PySpin
+
+
+
+
 class ScriptHandler(QtCore.QObject):
     """The ScriptHandler is what handles all the interfacing between the Script and the GUI. The Script
     emits signals, which are picked up by the ScriptHandler, which executes the necessary changes on the
@@ -45,6 +51,9 @@ class ScriptHandler(QtCore.QObject):
         self.globalVariablesRevertDict = dict() #original values of global variables which are changed
         self.namedTraceList = set()
         
+        self.pyspin_system = PySpin.System.GetInstance()
+        self.pyspin_camera_dict = dict()
+        
         #Experiment information signals
         self.scanExperiment.progressUi.stateChanged.connect(self.onScanStateChanged)
         self.analysisControlWidget.analysisResultSignal.connect(self.onAnalysisResult)
@@ -57,8 +66,13 @@ class ScriptHandler(QtCore.QObject):
         self.script.consoleSignal.connect( self.onConsoleSignal )
         
         #shutter signals
-        
         self.script.setShutterSignal.connect(self.onSetShutter)
+        
+        #Camera signals
+        self.script.addCameraSignal.connect(self.onAddCamera) 
+        self.script.startCameraSignal.connect(self.onStartCamera)
+        self.script.stopCameraSignal.connect(self.onStopCamera)
+        self.script.plotCameraImageSignal.connect(self.onPlotCameraImage)
 
         #action signals
         self.script.setGlobalSignal.connect(self.onSetGlobal)
@@ -369,6 +383,58 @@ class ScriptHandler(QtCore.QObject):
             message = 'Plot {0} added'.format(name)
         else:
             message = 'Plot {0} already exists'.format(name)
+        error = False
+        return (error, message)
+    
+    @QtCore.pyqtSlot(str,str)
+    @scriptCommand
+    def onAddCamera(self, camera_name,camera_serial):
+        if camera_name not in list(self.pyspin_camera_dict.keys()):
+            camera = BlackFlyCamera(camera_name,camera_serial,self.pyspin_system)
+            self.pyspin_camera_dict[camera_name] = camera
+            message = 'Camera {0} added'.format(camera_name)
+        else:
+            message = 'Camera {0} already exists'.format(camera_name)
+        error = False
+        return (error, message)
+    
+    @QtCore.pyqtSlot(str)
+    @scriptCommand
+    def onStartCamera(self, camera_name):
+        if camera_name in list(self.pyspin_camera_dict.keys()):
+            camera = self.pyspin_camera_dict[camera_name]
+            camera.start_camera()
+            message = 'Camera {0} started'.format(camera_name)
+        else:
+            message = 'Camera {0} not found. Add using addCamera'.format(camera_name)
+        error = False
+        return (error, message)
+    
+    @QtCore.pyqtSlot(str)
+    @scriptCommand
+    def onStopCamera(self, camera_name):
+        if camera_name in list(self.pyspin_camera_dict.keys()):
+            camera = self.pyspin_camera_dict[camera_name]
+            camera.stop_camera()
+            message = 'Camera {0} stopped'.format(camera_name)
+        else:
+            message = 'Camera {0} not found. Add using addCamera'.format(camera_name)
+        error = False
+        return (error, message)
+    
+    @QtCore.pyqtSlot(str,str,str)
+    @scriptCommand
+    def onPlotCameraImage(self, camera_name,plot_name,file_name):
+        if camera_name in list(self.pyspin_camera_dict.keys()):
+            camera = self.pyspin_camera_dict[camera_name]
+            status,image = camera.get_camera_image()
+            if not status:
+                message = 'Camera image incomplete'
+            else:
+                self.onPlotImage(image,plot_name)
+                message = 'Camera image plotted'.format(camera_name)
+        else:
+            message = 'Camera {0} not found. Add using addCamera'.format(camera_name)
         error = False
         return (error, message)
     

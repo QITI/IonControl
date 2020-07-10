@@ -51,6 +51,14 @@ class Script(QtCore.QThread):
     
     setShutterSignal = QtCore.pyqtSignal(int,bool) #args: index, value
     
+    #Camera related signals
+    addCameraSignal = QtCore.pyqtSignal(str,str) #arg: camera name, camera serial
+    startCameraSignal = QtCore.pyqtSignal(str) #arg: camera name
+    stopCameraSignal = QtCore.pyqtSignal(str) #arg: camera name
+    plotCameraImageSignal = QtCore.pyqtSignal(str,str,str) #arg: camera name, plotname, filename
+    
+    
+    
     setGlobalSignal = QtCore.pyqtSignal(str, float, str) #args: name, value, unit
     addGlobalSignal = QtCore.pyqtSignal(str, float, str) #args: name, value, unit
     startScanSignal = QtCore.pyqtSignal(list)  # args: globalOverrides list
@@ -430,26 +438,17 @@ class Script(QtCore.QThread):
         
     @scriptFunction()
     def plotImage(self,image_arr,plotname):
-        """plotList(xList, yList, traceName, overwrite=False, plotStyle=-1)
-        Plot a set of points given in xList, yList to trace traceName.
+        """plotImage(image_arr,plotname)
+        Plot a 2D numpy array into 'plotname'.
+        
+        Assumes that 'plotname' added using addImagePlot
 
         Args:
-            x (list[float]): x coordinates
-            y (list[float]): y coordinates
-            traceName (str): name of trace to use
-            overwrite (bool): if True, overwrite existing data
-            plotStyle (int): plot with lines, points, etc...
-                        0: lines
-                        1: points
-                        2: linespoints
-                        3: lines errors
-                        4: points errors
-                        5: linespoints errors
-                otherwise: GUI default
+            image_arr (np.ndarray[float]): array of pixel data
+            plotname (str): name of image plot to use
 
         Raises:
-            ScriptException: if traceName is not a trace
-            ScriptException: if x and y are of unequal lengths"""
+            ScriptException: if unable to plot image"""
         self.plotImageSignal.emit(image_arr,plotname)
         
     @scriptFunction()
@@ -465,14 +464,69 @@ class Script(QtCore.QThread):
     
     @scriptFunction()
     def addImagePlot(self, name):
-        """addPlot(name)
-        Add a plot named "name".
+        """addImagePlot(name)
+        Add an image plot named "name".
          
-        This is equivalent to clicking "add plot" on the experiment GUI. If 'name' already exists, does nothing.
+        If 'name' already exists, does nothing.
         
         Args:
             name (str): name of plot to add"""
         self.addImagePlotSignal.emit(name)
+    
+    @scriptFunction()
+    def addCamera(self, camera_name,cam_serial):
+        """addCamera(camera_name,cam_serial)
+        Add a camera named "camera_name" with "cam_serial"
+        
+        Assumes that the camera is Black fly camera
+         
+        If 'camera_name' already exists, does nothing.
+        
+        Args:
+            camera_name (str): name of camera to add. This is used as an identifier for the further actions with the camera"""
+        self.addCameraSignal.emit(camera_name,cam_serial)
+    
+    @scriptFunction()
+    def startCamera(self, camera_name):
+        """startCamera(camera_name)
+        Initializes the camera with "camera_name"
+        
+        Assumes that the camera is Black fly camera amd is added using addCamera function
+                 
+        Args:
+            camera_name (str): name of camera that was previously added using addCamera function."""
+        self.startCameraSignal.emit(camera_name)
+    
+    
+    @scriptFunction()
+    def stopCamera(self, camera_name):
+        """stopCamera(camera_name)
+        Stops the camera with "camera_name"
+        
+        Assumes that the camera is Black fly camera amd is added using addCamera function
+                 
+        Args:
+            camera_name (str): name of camera that was previously added using addCamera function."""
+        self.stopCameraSignal.emit(camera_name)
+        
+    @scriptFunction()
+    def plotCameraImage(self,camera_name,plot_name,file_name=''):
+        """plotCameraImage(camera_name,plot_name,file_name)
+        Takes an image from camera 'camera_name' and plots to image plot 'plotname'.
+        Saves the image to 'file_name'
+        
+        Assumes that 'plotname' added using addImagePlot
+        Assumes that the camera is Black fly camera amd is added using addCamera function
+
+        Args:
+            camera_name (str): name of camera that was previously added using addCamera function
+            plot_name (str): name of image plot to use
+            file_name (str): path of the filename to save. Ignores if empty
+
+        Raises:
+            ScriptException: if unable to plot image"""
+        self.plotCameraImageSignal.emit(camera_name,plot_name,file_name)
+        
 
     @scriptFunction()
     def pauseScan(self):
