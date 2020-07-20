@@ -55,7 +55,7 @@ class Script(QtCore.QThread):
     addCameraSignal = QtCore.pyqtSignal(str,str) #arg: camera name, camera serial
     startCameraSignal = QtCore.pyqtSignal(str) #arg: camera name
     stopCameraSignal = QtCore.pyqtSignal(str) #arg: camera name
-    plotCameraImageSignal = QtCore.pyqtSignal(str,str,str) #arg: camera name, plotname, filename
+    plotCameraImageSignal = QtCore.pyqtSignal(str,str,dict) #arg: camera name, plotname, kwargs
     
     
     
@@ -67,7 +67,7 @@ class Script(QtCore.QThread):
     setAnalysisSignal = QtCore.pyqtSignal(str) #arg: analysis name
     plotPointSignal = QtCore.pyqtSignal(float, float, str, int) #args: x, y, tracename, plotStyle
     plotListSignal = QtCore.pyqtSignal(list, list, str, bool, int) #args: xList, yList, tracename, overwrite, plotStyle
-    plotImageSignal = QtCore.pyqtSignal(numpy.ndarray, str) #args: image array, plotname
+    plotImageSignal = QtCore.pyqtSignal(numpy.ndarray, str,dict) #args: image array, plotname, kwargs
     addPlotSignal = QtCore.pyqtSignal(str) #arg: plot name
     addImagePlotSignal = QtCore.pyqtSignal(str) #arg: plot name
     abortScanSignal = QtCore.pyqtSignal()
@@ -437,7 +437,7 @@ class Script(QtCore.QThread):
         self.plotListSignal.emit(xList, yList, traceName, overwrite, plotStyle)
         
     @scriptFunction()
-    def plotImage(self,image_arr,plotname):
+    def plotImage(self,image_arr,plotname,**kwargs):
         """plotImage(image_arr,plotname)
         Plot a 2D numpy array into 'plotname'.
         
@@ -446,10 +446,11 @@ class Script(QtCore.QThread):
         Args:
             image_arr (np.ndarray[float]): array of pixel data
             plotname (str): name of image plot to use
-
+            color_levels (list): (min, max); the white and black level values to use.
+            
         Raises:
             ScriptException: if unable to plot image"""
-        self.plotImageSignal.emit(image_arr,plotname)
+        self.plotImageSignal.emit(image_arr,plotname,kwargs)
         
     @scriptFunction()
     def addPlot(self, name):
@@ -510,7 +511,7 @@ class Script(QtCore.QThread):
         self.stopCameraSignal.emit(camera_name)
         
     @scriptFunction()
-    def plotCameraImage(self,camera_name,plot_name,file_name=''):
+    def plotCameraImage(self,camera_name,plot_name,**kwargs):
         """plotCameraImage(camera_name,plot_name,file_name)
         Takes an image from camera 'camera_name' and plots to image plot 'plotname'.
         Saves the image to 'file_name'
@@ -521,11 +522,21 @@ class Script(QtCore.QThread):
         Args:
             camera_name (str): name of camera that was previously added using addCamera function
             plot_name (str): name of image plot to use
-            file_name (str): path of the filename to save. Ignores if empty
+            filename (str): path of the filename to save. Ignores if empty
+            roi (list): [xmin,ymin,xmax,ymax]
+            angle (float): angle to rotate the image
+            color_levels (list): (min, max); the white and black level values to use.
+        
+        Returns:
+            ndarray: image in form of a 2D array
 
         Raises:
             ScriptException: if unable to plot image"""
-        self.plotCameraImageSignal.emit(camera_name,plot_name,file_name)
+        self.plotCameraImageSignal.emit(camera_name,plot_name,kwargs)
+        self.genericWait.wait(self.mutex)
+        if isinstance(self.genericResult, ScriptException):
+            self.exception = self.genericResult
+        return self.genericResult
         
 
     @scriptFunction()

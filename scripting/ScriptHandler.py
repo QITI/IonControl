@@ -24,6 +24,7 @@ from copy import deepcopy
 
 from QITI_communicate_instruments.flir.black_fly_camera import BlackFlyCamera
 import PySpin
+import scipy.ndimage
 
 
 
@@ -422,20 +423,38 @@ class ScriptHandler(QtCore.QObject):
         error = False
         return (error, message)
     
-    @QtCore.pyqtSlot(str,str,str)
+    @QtCore.pyqtSlot(str,str,dict)
     @scriptCommand
-    def onPlotCameraImage(self, camera_name,plot_name,file_name):
-        if camera_name in list(self.pyspin_camera_dict.keys()):
-            camera = self.pyspin_camera_dict[camera_name]
-            status,image = camera.get_camera_image()
-            if not status:
-                message = 'Camera image incomplete'
+    def onPlotCameraImage(self, camera_name,plot_name,kwargs):
+        image = numpy.array([])
+        error,message = False, ''
+        try:
+            if camera_name in list(self.pyspin_camera_dict.keys()):
+                camera = self.pyspin_camera_dict[camera_name]
+                status,image = camera.get_camera_image()
+                if not status:
+                    message = 'Camera image incomplete'
+                else:
+                    if kwargs.get('angle'):
+                        angle = kwargs.get('angle')
+                        image = scipy.ndimage.rotate(image,angle)
+                    if kwargs.get('roi'):
+                        xs,ys,xe,ye = kwargs['roi']
+                        image = image[xs:xe,ys:ye]
+                    if kwargs.get('filename'):
+                        filename = kwargs.get('filename')
+                        numpy.savetxt(filename)
+                    color_levels = kwargs.get('color_levels')
+                    self.onPlotImage(image,plot_name,{'color_levels':color_levels})
+                    message = 'Camera image plotted'.format(camera_name)
             else:
-                self.onPlotImage(image,plot_name)
-                message = 'Camera image plotted'.format(camera_name)
-        else:
-            message = 'Camera {0} not found. Add using addCamera'.format(camera_name)
-        error = False
+                message = 'Camera {0} not found. Add using addCamera'.format(camera_name)
+        except Exception as e:
+            error, message = True, str(e)
+        with QtCore.QMutexLocker(self.script.mutex):
+            self.script.genericResult = image
+        self.script.genericWait.wakeAll()
+        print('.')
         return (error, message)
     
     @QtCore.pyqtSlot(list)
@@ -521,12 +540,12 @@ class ScriptHandler(QtCore.QObject):
         error, message = self.plotList(xList, yList, traceName, overwrite, plotStyle=plotStyle)
         return (error, message)
         
-    @QtCore.pyqtSlot(numpy.ndarray, str)
+    @QtCore.pyqtSlot(numpy.ndarray, str,dict)
     @scriptCommand
-    def onPlotImage(self,image_array, plotname):
+    def onPlotImage(self,image_array, plotname,kwargs):
         plotname = str(plotname)
         image_plot = self.scanExperiment.imagePlotDict[plotname]['image_item']
-        image_plot.setImage(image_array)
+        image_plot.setImage(image_array,levels = kwargs.get('color_levels'))
         error = False
         message = 'Image plotted'
         return (error, message)
@@ -628,6 +647,7 @@ class ScriptHandler(QtCore.QObject):
             self.script.scanWait.wakeAll()
             self.script.dataWait.wakeAll()
             self.script.analysisWait.wakeAll()
+            self.script.genericWait.wakeAll()
             self.scanExperiment.namedTraceui.saveAndUpdateFileList()
 
     def onPauseScriptAndScan(self):

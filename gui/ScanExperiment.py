@@ -855,12 +855,15 @@ class ScanExperiment(ScanExperimentForm, MainWindowWidget.MainWindowWidget):
             dock = Dock(name)
             widget = GraphicsLayoutWidget()
             view = widget.addPlot(title=name)
+            view.setAspectLocked()
             img = ImageItem()
             view.addItem(img)
-            #view = widget._graphicsView
             self.area.addDock(dock, "bottom")
             dock.addWidget(widget)
             self.imagePlotDict[name] = {"dock":dock, "widget":widget, "view":view, "image_item":img}
+            #TODO: Change it to mapping from matplotlib
+            lut = numpy.load('inferno_map_lut.npy')
+            img.setLookupTable(lut)
             self.evaluationControlWidget.plotnames.append(name)
             self.saveConfig() #In case the program suddenly shuts down
             self.plotsChanged.emit()

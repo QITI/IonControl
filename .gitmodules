@@ -10,3 +10,8 @@
 [submodule "rf_controller"]
 	path = rf_controller
 	url = https://github.com/QITI/rf_controller.git
+[submodule "QITI_pySLM"]
+	path = QITI_pySLM
+	url = https://github.com/QITI/pySLM
+[submodile "QITI_pySLM"]
+	branch = binarize_cos_func
