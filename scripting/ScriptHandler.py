@@ -545,7 +545,7 @@ class ScriptHandler(QtCore.QObject):
     def onPlotImage(self,image_array, plotname,kwargs):
         plotname = str(plotname)
         image_plot = self.scanExperiment.imagePlotDict[plotname]['image_item']
-        image_plot.setImage(image_array,levels = kwargs.get('color_levels'))
+        image_plot.setImage(image_array.copy(),levels = kwargs.get('color_levels'))
         error = False
         message = 'Image plotted'
         return (error, message)

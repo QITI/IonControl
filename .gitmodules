@@ -15,3 +15,6 @@
 	url = https://github.com/QITI/pySLM
 [submodile "QITI_pySLM"]
 	branch = binarize_cos_func
+[submodule "QITI_four_rod_oven_controller"]
+	path = QITI_four_rod_oven_controller
+	url = https://github.com/QITI/four_rod_oven_controller.git
