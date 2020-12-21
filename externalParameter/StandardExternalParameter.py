@@ -230,6 +230,78 @@ if DC_Controller_Enabled:
             instrument_list = project.hardware.get('QITI Four rod DC Controller').keys()
             return instrument_list
 
+
+four_rod_oven_controller_enabled = project.isEnabled('hardware', 'QITI Four Rod Oven Controller')
+
+if four_rod_oven_controller_enabled:
+    try:
+        from QITI_four_rod_oven_controller.four_rod_oven_controller.four_rod_oven_controller_client import FourRodOvenControllerClient
+    except ImportError:
+        importErrorPopup('four rod oven control')
+
+
+    class FourRodOvenControl(ExternalParameterBase):
+        """
+        Control the current and voltage of the BK Precision power supply that powers the four rod trap oven
+        """
+        className = "Four Rod Oven Control"
+        _outputChannels = OrderedDict([
+            ('Oven current set', 'A'),
+            ('Oven voltage set', 'V'),
+            ('Oven current reading (read only)', 'A'),
+            ('Oven voltage reading (read only)', 'V'),
+            ('Oven status (0=CV, 1=CC)', '')
+            ])
+        
+        _outputLookup = {
+            'Oven current set': ('A','current_set'),
+            'Oven voltage set': ('V','voltage_set'),
+            'Oven current reading (read only)': ('A','current_reading'),
+            'Oven voltage reading (read only)': ('V','voltage_reading'),
+            'Oven status (0=CV, 1=CC)': ('','status')
+            }
+
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Four Rod Oven Controller')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+            self.oven_client = FourRodOvenControllerClient(address=ip_addr + ':' + port)
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            if channel == 'Oven current set':
+                v_value = v.m_as('A')
+                v_value = float(v_value)
+                self.oven_client.set_current(v_value)
+            if channel == 'Oven voltage set':
+                v_value = v.m_as('V')
+                v_value = float(v_value)
+                self.oven_client.set_voltage(v_value)
+            return v
+
+        def getValue(self, channel):
+            unit, data_key = self._outputLookup[channel]
+            self.oven_data = self.oven_client.get_data()
+            return Q(self.oven_data[data_key], unit)
+
+        def getExternalValue(self, channel):
+            return self.getValue(channel)
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Four Rod Oven Controller').keys()
+            return instrument_list
+
+
 rfcontroller_enabled = project.isEnabled('hardware', 'QITI RF Controller')
 
 if rfcontroller_enabled:
