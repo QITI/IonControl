@@ -401,3 +401,58 @@ if rfcontroller_enabled:
             project = getProject()
             instrument_list = project.hardware.get('QITI RF Controller').keys()
             return instrument_list
+
+
+sana_enabled = project.isEnabled('hardware', 'QITI SANA')
+
+if sana_enabled:
+    try:
+        from QITI_WavemeterLock.PID_client.PID_client import PIDServerGRPCClient
+    except ImportError as err:
+        print(err)
+        importErrorPopup('SANA')
+
+    class SANAControl(ExternalParameterBase):
+        className = "SANA"
+        _outputChannels = OrderedDict([
+            ("dmd_FP_mirror_horizontal", 'V'),
+            ("dmd_FP_mirror_vertical", 'V'),
+        ])
+
+        _outputLookup = {
+            'dmd_FP_mirror_horizontal': "2A",
+            'dmd_FP_mirror_vertical': "2B",
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI SANA')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = PIDServerGRPCClient(ip_addr + ':' + port)
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+        
+        def setValue(self, channel, v):
+            sana_channel = self._outputLookup[channel]
+            parameter = v.m_as("V")
+            parameter = float(parameter)
+            self.client.set_channel_voltage(sana_channel, parameter)
+            return v
+
+        def getExternalValue(self, channel=None):
+            sana_channel = self._outputLookup[channel]
+            parameter = self.client.get_channel_voltage(sana_channel)
+            return Q(parameter, 'V')
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI SANA').keys()
+            return instrument_list
+        

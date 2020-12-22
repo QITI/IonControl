@@ -117,3 +117,9 @@ hardware:
     fields:
       ipAddress: str
       port: str
+
+  QITI SANA:
+    description: Interface with a Raspberry Pi server that controls SANA. Check https://github.com/QITI/WavemeterLock
+    fields:
+      ipAddress: str
+      port: str
