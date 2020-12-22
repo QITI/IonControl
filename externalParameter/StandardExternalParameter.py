@@ -320,12 +320,14 @@ if rfcontroller_enabled:
             ("frequency_cooling_aom", 'MHz'),
             ("frequency_optpump_eom", 'MHz'),
             ("frequency_microwave_modulation", 'MHz'),
+            ("frequency_dmd_aom", 'MHz'),
             ("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
             ("power_optpump_eom", ''),
             ("power_microwave_modulation", ''),
+            ("power_dmd_aom", ''),
             ("output_state_cooling_eom",''),
             ("output_state_microwave_modulation", '')
         ])
@@ -337,12 +339,14 @@ if rfcontroller_enabled:
             'frequency_cooling_aom': ("four_rod_cooling_aom", "frequency"),
             'frequency_optpump_eom': ("four_rod_optpump_eom", "frequency"),
             'frequency_microwave_modulation': ("four_rod_microwave_modulation", "frequency"),
+            'frequency_dmd_aom': ("four_rod_dmd_aom", "frequency"),
             'power_cooling_eom': ("four_rod_cooling_eom", "power"),
             'power_detection_aom': ("four_rod_detection_aom", "power"),
             'power_repump_eom': ("four_rod_repump_eom", "power"),
             'power_cooling_aom': ("four_rod_cooling_aom", "power"),
             'power_optpump_eom': ("four_rod_optpump_eom", "power"),
             'power_microwave_modulation': ("four_rod_microwave_modulation", "power"),
+            'power_dmd_aom': ("four_rod_dmd_aom", "power"),
             'output_state_cooling_eom': ("four_rod_cooling_eom", "output_state"),
             'output_state_microwave_modulation': ("four_rod_microwave_modulation", "output_state")
         }
