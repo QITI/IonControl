@@ -25,6 +25,7 @@ dependencies:
   - sqlalchemy-utils
   - pip
   - git
+  - default:tensorflow-gpu
   - pip:
     - influxdb
     - grpcio-tools
