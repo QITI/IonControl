@@ -203,6 +203,18 @@ class ChripedSinSqFit(FitFunctionBase):
         
     def functionEval(self, x, T, x0, max_, min_, dt ):
         return (max_-min_)*numpy.square(numpy.sin(numpy.pi/2/(T+dt*x)*(x-x0)))+min_
+
+class ExponentialFit(FitFunctionBase):
+    name = "Exponential"
+    functionString = 'A*(exp(-x/T)-B)'
+    parameterNames = [  'T', 'A', 'B' ]
+    def __init__(self):
+        FitFunctionBase.__init__(self)
+        self.parameters = [100, 1, 0]
+        self.startParameters = [100, 1, 0]
+        
+    def functionEval(self, x, T, A, B ):
+        return A * (numpy.exp(-x / T) - B)
     
 class SaturationFit(FitFunctionBase):
     name = "Saturation"
