@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,26 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="experimentUi_manual.html"/>
-        <link rel="next" title="Scripting" href="Scripting.html"/>
-        <link rel="prev" title="Scans" href="Scans.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scripting" href="Scripting.html" />
+    <link rel="prev" title="Scans" href="Scans.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FPGAhardware.html">Hardware</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="experimentUi_manual.html">User Manual</a><ul class="current">
@@ -115,36 +115,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="experimentUi_manual.html">User Manual</a> &raquo;</li>
-      
-    <li>Gate Sequences</li>
+        
+      <li>Gate Sequences</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/manual/GateSequences.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/manual/GateSequences.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -152,68 +172,64 @@
             
   <div class="section" id="gate-sequences">
 <span id="gatesequences"></span><h1>Gate Sequences<a class="headerlink" href="#gate-sequences" title="Permalink to this headline">¶</a></h1>
-<p>The gate sequence interface is intended to enable creating long sequences of gates for applications such as randomized benchmarking, gate set tomography, or long algorithms. The idea is to create two files. The first is the <em>gate definition</em> file, which is an XML file which defines a set of named operations (here called &#8216;gates,&#8217;). You can see an example in \IonControl\config\GateSequences\GateDefinition.xml. In this file, a <em>pulse</em> is defined as something that sets a phase, a pulse time, and a wait time. A <em>gate</em> is then a pulse with a specified phase, pulse time, and wait time. The two times are in turn specified in terms of <em>gateTime</em> and <em>piTime</em> which are pulse program parameters.</p>
+<p>The gate sequence interface is intended to enable creating long sequences of gates for applications such as randomized benchmarking, gate set tomography, or long algorithms. The idea is to create two files. The first is the <em>gate definition</em> file, which is an XML file which defines a set of named operations (here called ‘gates,’). You can see an example in \IonControl\config\GateSequences\GateDefinition.xml. In this file, a <em>pulse</em> is defined as something that sets a phase, a pulse time, and a wait time. A <em>gate</em> is then a pulse with a specified phase, pulse time, and wait time. The two times are in turn specified in terms of <em>gateTime</em> and <em>piTime</em> which are pulse program parameters.</p>
 <p>The second file is the <em>gate sequence</em> file. You can see an example in \IonControl\config\GateSequences\GateSequenceDefinition.xml. Here, a list of gate sequences are specified using the gate names that appeared in GateDefinition.xml.</p>
-<p>On the scan control interface, click the blue &#8220;Gate Sequences&#8221; bar at the bottom to open the Gate Sequences control panel. If the &#8220;Gate Sets in RAM&#8221; checkbox is checked, gate sequences will be written to RAM.</p>
+<p>On the scan control interface, click the blue “Gate Sequences” bar at the bottom to open the Gate Sequences control panel. If the “Gate Sets in RAM” checkbox is checked, gate sequences will be written to RAM.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If the write RAM checkbox in the pulse program window is checked, that will overwrite the RAM set here!</p>
+<p class="admonition-title">Warning</p>
+<p>If the write RAM checkbox in the pulse program window is checked, that will overwrite the RAM set here!</p>
 </div>
 <p>This figure illustrates what exactly is written to the RAM and how it is intended to be used in the pulse program.</p>
-<div class="figure" id="id1">
+<div class="figure align-default" id="id1">
 <a class="reference internal image-reference" href="../_images/GateSequenceIllustration.png"><img alt="../_images/GateSequenceIllustration.png" src="../_images/GateSequenceIllustration.png" style="width: 2160.0px; height: 2624.0px;" /></a>
-<p class="caption"><span class="caption-text">Illustration of how a gate sequence works. The Gate definitions file specifies a set of parameters defined by each named gate. The gate sequences file specifies a list of gate sequences. The RAM is then written as shown in the illustration. Each rectangle represents one cell of RAM memory, with the address of that cell shown below it. The blue boxes and red lines indicate the boundaries of gates and gate sequences, respectively. Each gate sequences takes a block of RAM, where the first element indicates how many gates are in the sequence, and the subsequent elements are the gates of the sequence. The pulse program code then reads out that information and executes the set of gates. Finally, if a gate sequence scan is selected from the scan control drop down menu, the RamStartAddress parameter will be scanned, and the scan values it takes will correspond to the divisions between each gate sequence (i.e. the red lines in the drawing).</span></p>
+<p class="caption"><span class="caption-text">Illustration of how a gate sequence works. The Gate definitions file specifies a set of parameters defined by each named gate. The gate sequences file specifies a list of gate sequences. The RAM is then written as shown in the illustration. Each rectangle represents one cell of RAM memory, with the address of that cell shown below it. The blue boxes and red lines indicate the boundaries of gates and gate sequences, respectively. Each gate sequences takes a block of RAM, where the first element indicates how many gates are in the sequence, and the subsequent elements are the gates of the sequence. The pulse program code then reads out that information and executes the set of gates. Finally, if a gate sequence scan is selected from the scan control drop down menu, the RamStartAddress parameter will be scanned, and the scan values it takes will correspond to the divisions between each gate sequence (i.e. the red lines in the drawing).</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>In the gate sequences GUI, there are three combo boxes:</p>
-<ul>
-<li><dl class="first docutils">
-<dt>Start address param</dt>
-<dd><p class="first last">This is the pulse program parameter that is used as the RAM start address, which is declared with the <strong>address</strong> keyword in the pulse program.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Start address param</dt><dd><p>This is the pulse program parameter that is used as the RAM start address, which is declared with the <strong>address</strong> keyword in the pulse program.</p>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Gate Definition</dt>
-<dd><p class="first last">The gate definition file, discussed above.</p>
+<li><dl class="simple">
+<dt>Gate Definition</dt><dd><p>The gate definition file, discussed above.</p>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Gate Sequence List</dt>
-<dd><p class="first last">The gate sequence file, discussed above.</p>
+<li><dl class="simple">
+<dt>Gate Sequence List</dt><dd><p>The gate sequence file, discussed above.</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p>There are also two radio buttons:</p>
-<ul>
-<li><dl class="first docutils">
-<dt>Full List</dt>
-<dd><p class="first last">If this is selected, the full list of gate sequences will be uploaded, as discussed above.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Full List</dt><dd><p>If this is selected, the full list of gate sequences will be uploaded, as discussed above.</p>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Gate</dt>
-<dd><p class="first last">If Gate is selected, the gate sequence list is ignored. Instead, the gates listed in the text box will be executed, and repeated the number of times specified in the spinbox. For example, if there are named gates x and y, you could type in &#8220;x,y,x,x,y&#8221;. If the spinbox is set to 10, this pattern would be repeated 10 times.</p>
+<li><dl class="simple">
+<dt>Gate</dt><dd><p>If Gate is selected, the gate sequence list is ignored. Instead, the gates listed in the text box will be executed, and repeated the number of times specified in the spinbox. For example, if there are named gates x and y, you could type in “x,y,x,x,y”. If the spinbox is set to 10, this pattern would be repeated 10 times.</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>Back in the scan control, the &#8220;Gate Sequence Scan&#8221; will scan the RAM start address in such a way as to scan through all of the gate sequences.</p>
+<p>Back in the scan control, the “Gate Sequence Scan” will scan the RAM start address in such a way as to scan through all of the gate sequences.</p>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Scripting.html" class="btn btn-neutral float-right" title="Scripting" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Scripting.html" class="btn btn-neutral float-right" title="Scripting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Scans.html" class="btn btn-neutral" title="Scans" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Scans.html" class="btn btn-neutral" title="Scans" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -222,11 +238,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -241,34 +257,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

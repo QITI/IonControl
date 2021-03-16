@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,24 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +77,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../FPGAhardware.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manual/experimentUi_manual.html">User Manual</a></li>
@@ -97,34 +97,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>uiModules.CategoryTree</li>
+        
+      <li>uiModules.CategoryTree</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -138,18 +156,18 @@
 <span class="c1"># *****************************************************************</span>
 
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
-<span class="kn">from</span> <span class="nn">modules.enum</span> <span class="k">import</span> <span class="n">enum</span>
-<span class="kn">from</span> <span class="nn">modules.Utility</span> <span class="k">import</span> <span class="n">indexWithDefault</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">getrefcount</span>
-<span class="kn">from</span> <span class="nn">uiModules.KeyboardFilter</span> <span class="k">import</span> <span class="n">KeyListFilter</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">modules.enum</span> <span class="kn">import</span> <span class="n">enum</span>
+<span class="kn">from</span> <span class="nn">modules.Utility</span> <span class="kn">import</span> <span class="n">indexWithDefault</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">getrefcount</span>
+<span class="kn">from</span> <span class="nn">uiModules.KeyboardFilter</span> <span class="kn">import</span> <span class="n">KeyListFilter</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 
 <span class="n">nodeTypes</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../code/uiModules-doc.html#uiModules.CategoryTree.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for tree nodes&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">nodeType</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">nodeType</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span> <span class="c1">#parent node</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span> <span class="c1">#All nodes need a unique id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span> <span class="c1">#content is the actual data in the tree, it can be anything</span>
@@ -165,10 +183,10 @@
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">childCount</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">row</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="n">other</span><span class="o">.</span><span class="n">id</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="n">other</span><span class="o">.</span><span class="n">id</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;Node: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -181,7 +199,7 @@
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">newRow</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span> <span class="n">newRow</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">)</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
@@ -198,8 +216,8 @@
 <span class="sd">    Other attributes that are respected are &quot;hasDepedency&quot; and &quot;isBold.&quot; If the content has one of those attributes,</span>
 <span class="sd">    the content is displayed accordingly.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contentList</span><span class="o">=</span><span class="p">[],</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CategoryTreeModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contentList</span><span class="o">=</span><span class="p">[],</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CategoryTreeModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="c1">#attribute that determines how to categorize content</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">categoriesAttr</span> <span class="o">=</span> <span class="n">categoriesAttr</span>
         <span class="c1">#attribute that determines node names</span>
@@ -318,7 +336,7 @@
         <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="n">categories</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">categoriesAttr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">categories</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">categories</span><span class="o">.</span><span class="n">__class__</span><span class="o">!=</span><span class="nb">list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">categories</span><span class="o">.</span><span class="vm">__class__</span><span class="o">!=</span><span class="nb">list</span><span class="p">:</span>
                 <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">categories</span><span class="p">]</span>  <span class="c1"># make a list of one if it&#39;s not a list</span>
             <span class="n">categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">categories</span><span class="p">))</span> <span class="c1">#make sure it&#39;s a list of strings</span>
             <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeCategoryNodes</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
@@ -407,7 +425,7 @@
         <span class="n">oldID</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="n">oldRow</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">row</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">categories</span><span class="p">:</span>
-            <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">categories</span><span class="p">]</span> <span class="k">if</span> <span class="n">categories</span><span class="o">.</span><span class="n">__class__</span><span class="o">!=</span><span class="nb">list</span> <span class="k">else</span> <span class="n">categories</span> <span class="c1"># make a list of one if it&#39;s not a list</span>
+            <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">categories</span><span class="p">]</span> <span class="k">if</span> <span class="n">categories</span><span class="o">.</span><span class="vm">__class__</span><span class="o">!=</span><span class="nb">list</span> <span class="k">else</span> <span class="n">categories</span> <span class="c1"># make a list of one if it&#39;s not a list</span>
             <span class="n">categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">categories</span><span class="p">))</span> <span class="c1">#make sure it&#39;s a list of strings</span>
             <span class="n">newParent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeCategoryNodes</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -491,8 +509,8 @@
 
 <div class="viewcode-block" id="CategoryTreeView"><a class="viewcode-back" href="../../code/uiModules-doc.html#uiModules.CategoryTree.CategoryTreeView">[docs]</a><span class="k">class</span> <span class="nc">CategoryTreeView</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTreeView</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for viewing category trees&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CategoryTreeView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CategoryTreeView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">KeyListFilter</span><span class="p">(</span> <span class="p">[</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_PageUp</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_PageDown</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">],</span>
                                      <span class="p">[</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_B</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Up</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Down</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_W</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_R</span><span class="p">]</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">keyPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onKey</span><span class="p">)</span>
@@ -597,8 +615,8 @@
 <div class="viewcode-block" id="CategoryTreeView.treeColumnWidth"><a class="viewcode-back" href="../../code/uiModules-doc.html#uiModules.CategoryTree.CategoryTreeView.treeColumnWidth">[docs]</a>    <span class="k">def</span> <span class="nf">treeColumnWidth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">()</span><span class="o">.</span><span class="n">saveState</span><span class="p">()</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="CategoryTreeView.colorName"><a class="viewcode-back" href="../../code/uiModules-doc.html#uiModules.CategoryTree.CategoryTreeView.colorName">[docs]</a>    <span class="k">def</span> <span class="nf">colorName</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
+<div class="viewcode-block" id="CategoryTreeView.colorName"><a class="viewcode-back" href="../../code/uiModules-doc.html#uiModules.CategoryTree.CategoryTreeView.colorName">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">colorName</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
         <span class="n">color</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="s1">&#39;bgColor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">name</span><span class="p">())</span> <span class="k">if</span> <span class="n">color</span> <span class="k">else</span> <span class="kc">None</span></div>
 
@@ -673,23 +691,23 @@
 
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+    <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="k">class</span> <span class="nc">myContent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hasDependency</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">isBold</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hasDependency</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">isBold</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data1</span> <span class="o">=</span> <span class="n">data1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data2</span> <span class="o">=</span> <span class="n">data2</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hasDependency</span> <span class="o">=</span> <span class="n">hasDependency</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">isBold</span> <span class="o">=</span> <span class="n">isBold</span>
-        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data1</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data2</span><span class="p">)))</span>
     <span class="k">class</span> <span class="nc">myModel</span><span class="p">(</span><span class="n">CategoryTreeModel</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contentList</span><span class="o">=</span><span class="p">[],</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">(</span><span class="n">myModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">contentList</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="p">)</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contentList</span><span class="o">=</span><span class="p">[],</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">myModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">contentList</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">categoriesAttr</span><span class="p">,</span> <span class="n">nodeNameAttr</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">numColumns</span><span class="o">=</span><span class="mi">2</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">allowReordering</span><span class="o">=</span><span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">allowDeletion</span><span class="o">=</span><span class="kc">True</span>
@@ -750,6 +768,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -758,11 +777,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -777,34 +796,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

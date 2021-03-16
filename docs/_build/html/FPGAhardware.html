@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,25 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="index.html"/>
-        <link rel="next" title="User Manual" href="manual/experimentUi_manual.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Manual" href="manual/experimentUi_manual.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -81,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Hardware</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#standard-configuration">Standard Configuration</a></li>
@@ -116,34 +117,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Hardware</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Hardware</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/FPGAhardware.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/FPGAhardware.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -168,39 +189,39 @@ A firmware for the LX45 FPGA is approximately 1450kB, for the LX150 it is approx
 <p>The full functionality of the firmware is slightly too large for the LX45 FPGA. Thus the standard firmware cannot be compiled for LX45 (without timing violations). There are three different firmware files trhat can be used with the LX45 FPGA.
 Each has a specific limitation that makes it possible to fit in the LX45.</p>
 <ul class="simple">
-<li><em>IonControl-firmware-no-div.bit</em> does <em>NOT</em> include the division command in the pulse program. It will <em>NOT</em> do any divisions.</li>
-<li><em>IonControl-firmware-8Counters.bit</em> only includes 8 counter channels and 2 timestamping channels. (But includes the division).</li>
-<li><em>IonControl-firmware-20MHz-DDS-SCLK.bit</em> uses a 20MHz serial clock for communication with DDS chips. This means writing the frequency takes about 3us instead of 1.5us.</li>
+<li><p><em>IonControl-firmware-no-div.bit</em> does <em>NOT</em> include the division command in the pulse program. It will <em>NOT</em> do any divisions.</p></li>
+<li><p><em>IonControl-firmware-8Counters.bit</em> only includes 8 counter channels and 2 timestamping channels. (But includes the division).</p></li>
+<li><p><em>IonControl-firmware-20MHz-DDS-SCLK.bit</em> uses a 20MHz serial clock for communication with DDS chips. This means writing the frequency takes about 3us instead of 1.5us.</p></li>
 </ul>
 <p>This standard firmware setup is for use with the Duke breakout board <em>OpalKellyIonControlBoxFanout_v3b</em>,
 which contains 8 DAC channels, 8 ADC channels, 3x 8 pin TTL input banks, 9x 8 pin TTL output banks,
 and 10x SMA TTL outputs (for connecting to RF switches).</p>
 <ul class="simple">
-<li><strong>In1</strong> Input bank 1 is connected to counter channels 0-8.</li>
-<li><strong>In2</strong> Input bank 2 is connected to counter channels 9-15.</li>
-<li><strong>In3</strong> Input bank 3 is connected to trigger channels 0-7.</li>
-<li><strong>Out1</strong> Output bank 1 is connected to shutters 0-7.</li>
-<li><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</li>
-<li><strong>Out7</strong> Output bank 7 is connected to shutter channels 16-23.</li>
+<li><p><strong>In1</strong> Input bank 1 is connected to counter channels 0-8.</p></li>
+<li><p><strong>In2</strong> Input bank 2 is connected to counter channels 9-15.</p></li>
+<li><p><strong>In3</strong> Input bank 3 is connected to trigger channels 0-7.</p></li>
+<li><p><strong>Out1</strong> Output bank 1 is connected to shutters 0-7.</p></li>
+<li><p><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</p></li>
+<li><p><strong>Out7</strong> Output bank 7 is connected to shutter channels 16-23.</p></li>
 </ul>
 <p>The FPGA is configured to talk to four of the 2 channel AD9912 DDS boards: <em>DDS-AD9912_r4</em>, for a total of 8 DDS channels.
 The breakout board should be connected to the DDSs as follows:</p>
 <ul class="simple">
-<li><strong>Out3</strong>: Channels 1 and 0 in the opposite order from what&#8217;s labeled on the DDS board, that is if you look at the board with the rf output connectors facing you and the chip on the top side then the left channel is channel 0, the right channel 1)</li>
-<li><strong>Out4</strong>: Channels 3 and 2 (same as above)</li>
-<li><strong>Out5</strong>: Channels 5 and 4</li>
-<li><strong>Out6</strong>: Channels 7 and 6</li>
+<li><p><strong>Out3</strong>: Channels 1 and 0 in the opposite order from what’s labeled on the DDS board, that is if you look at the board with the rf output connectors facing you and the chip on the top side then the left channel is channel 0, the right channel 1)</p></li>
+<li><p><strong>Out4</strong>: Channels 3 and 2 (same as above)</p></li>
+<li><p><strong>Out5</strong>: Channels 5 and 4</p></li>
+<li><p><strong>Out6</strong>: Channels 7 and 6</p></li>
 </ul>
 <p>SMA switch channels:</p>
 <ul class="simple">
-<li><strong>DDS 0</strong>: JP2-31, shutter 24</li>
-<li><strong>DDS 1</strong>: JP2-34, shutter 25</li>
-<li><strong>DDS 2</strong>: JP2-30, shutter 26</li>
-<li><strong>DDS 3</strong>: JP2-33, shutter 27</li>
-<li><strong>DDS 4</strong>: JP2-29, shutter 28</li>
-<li><strong>DDS 5</strong>: JP2-32, shutter 29</li>
-<li><strong>DDS 6</strong>: JP2-37, shutter 30</li>
-<li><strong>DDS 7</strong>: JP2-38, shutter 31</li>
+<li><p><strong>DDS 0</strong>: JP2-31, shutter 24</p></li>
+<li><p><strong>DDS 1</strong>: JP2-34, shutter 25</p></li>
+<li><p><strong>DDS 2</strong>: JP2-30, shutter 26</p></li>
+<li><p><strong>DDS 3</strong>: JP2-33, shutter 27</p></li>
+<li><p><strong>DDS 4</strong>: JP2-29, shutter 28</p></li>
+<li><p><strong>DDS 5</strong>: JP2-32, shutter 29</p></li>
+<li><p><strong>DDS 6</strong>: JP2-37, shutter 30</p></li>
+<li><p><strong>DDS 7</strong>: JP2-38, shutter 31</p></li>
 </ul>
 <p>A variation of the firmware using 20MHz serial clock to communicate with the DDS chips (instead of 40MHz) is available
 as <em>IonControl-firmware-20MHz-DDS-SCLK.bit</em></p>
@@ -211,7 +232,7 @@ as <em>IonControl-firmware-20MHz-DDS-SCLK.bit</em></p>
 <div class="section" id="dds10">
 <h3>DDS10<a class="headerlink" href="#dds10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong>Out7</strong>: DDS channels 8 and 9</li>
+<li><p><strong>Out7</strong>: DDS channels 8 and 9</p></li>
 </ul>
 </div>
 <div class="section" id="duke">
@@ -225,53 +246,53 @@ as <em>IonControl-firmware-20MHz-DDS-SCLK.bit</em></p>
 <div class="section" id="qga">
 <h3>QGA<a class="headerlink" href="#qga" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</li>
-<li><strong>Out7</strong> is unconnected.</li>
-<li>SMA switch channels are active low and have a different channel assignment:</li>
-<li><strong>DDS 0</strong>: JP2-31, shutter 24</li>
-<li><strong>DDS 1</strong>: JP2-34, shutter 25</li>
-<li><strong>DDS 2</strong>: JP2-30, shutter 26</li>
-<li><strong>DDS 3</strong>: JP2-33, shutter 27</li>
-<li><strong>DDS 4</strong>: JP2-29, shutter 28</li>
-<li><strong>DDS 5</strong>: JP2-32, shutter 29</li>
-<li><strong>DDS 6</strong>: JP2-39, shutter 30</li>
-<li><strong>DDS 7</strong>: JP2-37, shutter 31</li>
+<li><p><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</p></li>
+<li><p><strong>Out7</strong> is unconnected.</p></li>
+<li><p>SMA switch channels are active low and have a different channel assignment:</p></li>
+<li><p><strong>DDS 0</strong>: JP2-31, shutter 24</p></li>
+<li><p><strong>DDS 1</strong>: JP2-34, shutter 25</p></li>
+<li><p><strong>DDS 2</strong>: JP2-30, shutter 26</p></li>
+<li><p><strong>DDS 3</strong>: JP2-33, shutter 27</p></li>
+<li><p><strong>DDS 4</strong>: JP2-29, shutter 28</p></li>
+<li><p><strong>DDS 5</strong>: JP2-32, shutter 29</p></li>
+<li><p><strong>DDS 6</strong>: JP2-39, shutter 30</p></li>
+<li><p><strong>DDS 7</strong>: JP2-37, shutter 31</p></li>
 </ul>
 </div>
 <div class="section" id="qga-extclk">
 <h3>QGA-ExtClk<a class="headerlink" href="#qga-extclk" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</li>
-<li><strong>Out7</strong> is unconnected.</li>
-<li>SMA switch channels are active low and have a different channel assignment:</li>
-<li><strong>DDS 0</strong>: JP2-31, shutter 24</li>
-<li><strong>DDS 1</strong>: JP2-34, shutter 25</li>
-<li><strong>DDS 2</strong>: JP2-30, shutter 26</li>
-<li><strong>DDS 3</strong>: JP2-33, shutter 27</li>
-<li><strong>DDS 4</strong>: JP2-29, shutter 28</li>
-<li><strong>DDS 5</strong>: JP2-32, shutter 29</li>
-<li><strong>DDS 6</strong>: JP2-39, shutter 30</li>
-<li><strong>DDS 7</strong>: JP2-37, shutter 31</li>
-<li>An external 100MHz clock can be supplied on the SMA connector JP2-38. If the supplied clock is phase locked to the 1GHz reference used for the DDS clock, all DDS channels can updated phase synchronous. To achieve phase synchronous operation, the channels have to be reset first.</li>
+<li><p><strong>Out2</strong> bits 0-5 are connected to shutters 8-13, bit 6 is connected to trigger 17 and bit 7 forms a serial interface. This is intended for use with the trap voltage 100 channel DAC system.</p></li>
+<li><p><strong>Out7</strong> is unconnected.</p></li>
+<li><p>SMA switch channels are active low and have a different channel assignment:</p></li>
+<li><p><strong>DDS 0</strong>: JP2-31, shutter 24</p></li>
+<li><p><strong>DDS 1</strong>: JP2-34, shutter 25</p></li>
+<li><p><strong>DDS 2</strong>: JP2-30, shutter 26</p></li>
+<li><p><strong>DDS 3</strong>: JP2-33, shutter 27</p></li>
+<li><p><strong>DDS 4</strong>: JP2-29, shutter 28</p></li>
+<li><p><strong>DDS 5</strong>: JP2-32, shutter 29</p></li>
+<li><p><strong>DDS 6</strong>: JP2-39, shutter 30</p></li>
+<li><p><strong>DDS 7</strong>: JP2-37, shutter 31</p></li>
+<li><p>An external 100MHz clock can be supplied on the SMA connector JP2-38. If the supplied clock is phase locked to the 1GHz reference used for the DDS clock, all DDS channels can updated phase synchronous. To achieve phase synchronous operation, the channels have to be reset first.</p></li>
 </ul>
 </div>
 <div class="section" id="wiggely-line-box">
 <h3>Wiggely-line box<a class="headerlink" href="#wiggely-line-box" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Uses the Sandia breakout board version 1</li>
-<li>There are only 6 DDS channels present.</li>
-<li><strong>In1</strong> is connected to counter channels 0-7 and 8-15.</li>
-<li><strong>In2</strong> bits 0-5 are connected to trigger channels 0-5. Bits 6 and 7 are not present.</li>
-<li><strong>Out2</strong> bits 0-6 are connected to shutters 8-14, bit 7 is a fanout for in1</li>
-<li>SMA switch channels are active low and have a different channel assignment:</li>
-<li><strong>DDS 2</strong>: JP2-31, shutter 26</li>
-<li><strong>DDS 5</strong>: JP2-34, shutter 29</li>
-<li><strong>DDS 1</strong>: JP2-30, shutter 25</li>
-<li><strong>DDS 4</strong>: JP2-33, shutter 28</li>
-<li><strong>DDS 0</strong>: JP2-29, shutter 24</li>
-<li><strong>DDS 3</strong>: JP2-32, shutter 27</li>
-<li><strong>DDS 6</strong>: JP2-39, shutter 30</li>
-<li><strong>DDS 7</strong>: JP2-37, shutter 31</li>
+<li><p>Uses the Sandia breakout board version 1</p></li>
+<li><p>There are only 6 DDS channels present.</p></li>
+<li><p><strong>In1</strong> is connected to counter channels 0-7 and 8-15.</p></li>
+<li><p><strong>In2</strong> bits 0-5 are connected to trigger channels 0-5. Bits 6 and 7 are not present.</p></li>
+<li><p><strong>Out2</strong> bits 0-6 are connected to shutters 8-14, bit 7 is a fanout for in1</p></li>
+<li><p>SMA switch channels are active low and have a different channel assignment:</p></li>
+<li><p><strong>DDS 2</strong>: JP2-31, shutter 26</p></li>
+<li><p><strong>DDS 5</strong>: JP2-34, shutter 29</p></li>
+<li><p><strong>DDS 1</strong>: JP2-30, shutter 25</p></li>
+<li><p><strong>DDS 4</strong>: JP2-33, shutter 28</p></li>
+<li><p><strong>DDS 0</strong>: JP2-29, shutter 24</p></li>
+<li><p><strong>DDS 3</strong>: JP2-32, shutter 27</p></li>
+<li><p><strong>DDS 6</strong>: JP2-39, shutter 30</p></li>
+<li><p><strong>DDS 7</strong>: JP2-37, shutter 31</p></li>
 </ul>
 </div>
 </div>
@@ -279,30 +300,30 @@ as <em>IonControl-firmware-20MHz-DDS-SCLK.bit</em></p>
 <h2>Breakout Boards<a class="headerlink" href="#breakout-boards" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sandia-v1">
 <h3>Sandia v1<a class="headerlink" href="#sandia-v1" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>Original breakout board. 6x 8 bit 50 Ohm driven outputs, 2x 8bit 50 Ohm terminated inputs.</dt>
-<dd>4 channel ADC, 4 channel DAC.</dd>
+<dl class="simple">
+<dt>Original breakout board. 6x 8 bit 50 Ohm driven outputs, 2x 8bit 50 Ohm terminated inputs.</dt><dd><p>4 channel ADC, 4 channel DAC.</p>
+</dd>
 </dl>
 <p><strong>Problems:</strong></p>
 <ul class="simple">
-<li>After a power up of the board and without writing the firmware, all output bits are high.</li>
-<li>2 bits on In2 and 2 bits on Out6 are not functional.</li>
+<li><p>After a power up of the board and without writing the firmware, all output bits are high.</p></li>
+<li><p>2 bits on In2 and 2 bits on Out6 are not functional.</p></li>
 </ul>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="_images/SandiaBreakoutv1brd.png"><img alt="map to buried treasure" src="_images/SandiaBreakoutv1brd.png" style="width: 528.0px; height: 611.0px;" /></a>
 </div>
 </div>
 <div class="section" id="sandia-v2">
 <h3>Sandia v2<a class="headerlink" href="#sandia-v2" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>6x 8 bit 50 Ohm driven outputs, 2x 8bit 50 Ohm terminated inputs. 4x 8bit direct connections.</dt>
-<dd>4 channel ADC, 4 channel DAC.</dd>
+<dl class="simple">
+<dt>6x 8 bit 50 Ohm driven outputs, 2x 8bit 50 Ohm terminated inputs. 4x 8bit direct connections.</dt><dd><p>4 channel ADC, 4 channel DAC.</p>
+</dd>
 </dl>
 <p><strong>Problems:</strong></p>
 <ul class="simple">
-<li>After a power up of the board and without writing the firmware, all output bits are high.</li>
+<li><p>After a power up of the board and without writing the firmware, all output bits are high.</p></li>
 </ul>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="_images/SandiaBreakoutv2brd.png"><img alt="map to buried treasure" src="_images/SandiaBreakoutv2brd.png" style="width: 475.0px; height: 563.0px;" /></a>
 </div>
 </div>
@@ -310,14 +331,14 @@ as <em>IonControl-firmware-20MHz-DDS-SCLK.bit</em></p>
 <h3>Duke v1<a class="headerlink" href="#duke-v1" title="Permalink to this headline">¶</a></h3>
 <p><strong>Problems:</strong></p>
 <ul class="simple">
-<li>After a power up of the board and without writing the firmware, all output bits are high.</li>
+<li><p>After a power up of the board and without writing the firmware, all output bits are high.</p></li>
 </ul>
 </div>
 <div class="section" id="duke-v2">
 <h3>Duke v2<a class="headerlink" href="#duke-v2" title="Permalink to this headline">¶</a></h3>
 <p>This version of the breakout board uses enable bits for the 50 Ohm drivers that are only enabled once the firmware is uploaded.
 Thus there is no unintended high output after a power failure.</p>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="_images/DukeBreakoutv3b.png"><img alt="_images/DukeBreakoutv3b.png" src="_images/DukeBreakoutv3b.png" style="width: 529.0px; height: 565.5px;" /></a>
 </div>
 </div>
@@ -326,15 +347,16 @@ Thus there is no unintended high output after a power failure.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="manual/experimentUi_manual.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="manual/experimentUi_manual.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -343,11 +365,11 @@ Thus there is no unintended high output after a power failure.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -362,34 +384,24 @@ Thus there is no unintended high output after a power failure.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

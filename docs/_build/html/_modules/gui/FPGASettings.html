@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,24 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +77,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../FPGAhardware.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manual/experimentUi_manual.html">User Manual</a></li>
@@ -97,34 +97,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>gui.FPGASettings</li>
+        
+      <li>gui.FPGASettings</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -137,27 +155,27 @@
 <span class="c1"># in the file &quot;license.txt&quot; in the top-level IonControl directory</span>
 <span class="c1"># *****************************************************************</span>
 
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
 <span class="kn">import</span> <span class="nn">PyQt5.uic</span>
 
 
 <div class="viewcode-block" id="FPGASettings"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettings">[docs]</a><span class="k">class</span> <span class="nc">FPGASettings</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceSerial</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceDescription</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceInfo</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/FPGASettings.ui&#39;</span><span class="p">)</span>
+<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/FPGASettings.ui&#39;</span><span class="p">)</span>
 <span class="n">SettingsDialogForm</span><span class="p">,</span> <span class="n">SettingsDialogBase</span> <span class="o">=</span> <span class="n">PyQt5</span><span class="o">.</span><span class="n">uic</span><span class="o">.</span><span class="n">loadUiType</span><span class="p">(</span><span class="n">uipath</span><span class="p">)</span>
-<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/FPGASettingsList.ui&#39;</span><span class="p">)</span>
+<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/FPGASettingsList.ui&#39;</span><span class="p">)</span>
 <span class="n">ListForm</span><span class="p">,</span> <span class="n">ListBase</span> <span class="o">=</span> <span class="n">PyQt5</span><span class="o">.</span><span class="n">uic</span><span class="o">.</span><span class="n">loadUiType</span><span class="p">(</span><span class="n">uipath</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FPGASettingsDialogConfig"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsDialogConfig">[docs]</a><span class="k">class</span> <span class="nc">FPGASettingsDialogConfig</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">autoUpload</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastInstrument</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastBitfile</span> <span class="o">=</span> <span class="kc">None</span>
@@ -165,13 +183,13 @@
 
 <div class="viewcode-block" id="FPGASettingsDialogConfig.__setstate__"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsDialogConfig.__setstate__">[docs]</a>    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;this function ensures that the given fields are present in the class object&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">state</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span> <span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">False</span> <span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span> <span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">False</span> <span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="FPGASettingsWidget"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsWidget">[docs]</a><span class="k">class</span> <span class="nc">FPGASettingsWidget</span><span class="p">(</span><span class="n">SettingsDialogForm</span><span class="p">,</span> <span class="n">SettingsDialogBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pulser</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="n">SettingsDialogBase</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>    
-        <span class="n">SettingsDialogForm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pulser</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">SettingsDialogBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>    
+        <span class="n">SettingsDialogForm</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceSerialMap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -252,7 +270,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">comboBoxInstruments</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBoxInstruments</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">newIdentifier</span><span class="p">)</span> <span class="p">)</span></div>
         
 <div class="viewcode-block" id="FPGASettingsWidget.scanInstruments"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsWidget.scanInstruments">[docs]</a>    <span class="k">def</span> <span class="nf">scanInstruments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comboBoxInstruments</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulser</span><span class="o">.</span><span class="n">listBoards</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deviceSerialMap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="p">(</span> <span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">serial</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span> <span class="k">for</span> <span class="n">dev</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="p">)</span>
@@ -260,7 +278,7 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s2">&quot;Opal Kelly Devices found </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span> <span class="p">)</span> <span class="p">)</span></div>
         
 <div class="viewcode-block" id="FPGASettingsWidget.onIndexChanged"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsWidget.onIndexChanged">[docs]</a>    <span class="k">def</span> <span class="nf">onIndexChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">description</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s2">&quot;instrument &#39;</span><span class="si">{0}</span><span class="s2">&#39; </span><span class="si">{1}</span><span class="s2"> </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">)]</span><span class="o">.</span><span class="n">modelName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">)]</span><span class="o">.</span><span class="n">serial</span><span class="p">)</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">deviceSerial</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deviceMap</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">)]</span><span class="o">.</span><span class="n">serial</span>
@@ -282,7 +300,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">configSettings</span><span class="o">.</span><span class="n">lastBitfile</span> <span class="o">=</span> <span class="n">path</span></div>
             
 <div class="viewcode-block" id="FPGASettingsWidget.onUploadBitfile"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsWidget.onUploadBitfile">[docs]</a>    <span class="k">def</span> <span class="nf">onUploadBitfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="n">bitfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comboBoxBitfiles</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s2">&quot;Uploading file &#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bitfile</span><span class="p">)</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configSettings</span><span class="o">.</span><span class="n">lastBitfile</span> <span class="o">=</span> <span class="n">bitfile</span>
@@ -297,9 +315,9 @@
 
 
 <div class="viewcode-block" id="FPGASettingsDialog"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsDialog">[docs]</a><span class="k">class</span> <span class="nc">FPGASettingsDialog</span><span class="p">(</span><span class="n">ListForm</span><span class="p">,</span> <span class="n">ListBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="n">ListBase</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>    
-        <span class="n">ListForm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">ListBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>    
+        <span class="n">ListForm</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widgetDict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">showOnStartup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FPGASettingsDialog.showOnStartup&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -345,7 +363,7 @@
 <div class="viewcode-block" id="FPGASettingsDialog.settings"><a class="viewcode-back" href="../../code/gui-doc.html#gui.FPGASettings.FPGASettingsDialog.settings">[docs]</a>    <span class="k">def</span> <span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgetDict</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">settings</span></div></div>
             
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="k">class</span> <span class="nc">Recipient</span><span class="p">:</span>
         <span class="k">def</span> <span class="nf">onSettingsApply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -363,6 +381,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -371,11 +390,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -390,34 +409,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,24 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +77,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../FPGAhardware.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../manual/experimentUi_manual.html">User Manual</a></li>
@@ -97,34 +97,52 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>gui.ScanProgress</li>
+        
+      <li>gui.ScanProgress</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -136,31 +154,34 @@
 <span class="c1"># This Software is released under the GPL license detailed</span>
 <span class="c1"># in the file &quot;license.txt&quot; in the top-level IonControl directory</span>
 <span class="c1"># *****************************************************************</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
 <span class="kn">import</span> <span class="nn">PyQt5.uic</span>
 
-<span class="kn">from</span> <span class="nn">modules.enum</span> <span class="k">import</span> <span class="n">enum</span>
-<span class="kn">from</span> <span class="nn">modules.firstNotNone</span> <span class="k">import</span> <span class="n">firstNotNone</span>
+<span class="kn">from</span> <span class="nn">modules.enum</span> <span class="kn">import</span> <span class="n">enum</span>
+<span class="kn">from</span> <span class="nn">modules.firstNotNone</span> <span class="kn">import</span> <span class="n">firstNotNone</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/ScanProgress.ui&#39;</span><span class="p">)</span>
+<span class="n">uipath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;ui/ScanProgress.ui&#39;</span><span class="p">)</span>
 <span class="n">Form</span><span class="p">,</span> <span class="n">Base</span> <span class="o">=</span> <span class="n">PyQt5</span><span class="o">.</span><span class="n">uic</span><span class="o">.</span><span class="n">loadUiType</span><span class="p">(</span><span class="n">uipath</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScanProgress"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress">[docs]</a><span class="k">class</span> <span class="nc">ScanProgress</span><span class="p">(</span><span class="n">Form</span><span class="p">,</span> <span class="n">Base</span><span class="p">):</span>
     <span class="n">OpStates</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span><span class="s1">&#39;idle&#39;</span><span class="p">,</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span> <span class="s1">&#39;paused&#39;</span><span class="p">,</span> <span class="s1">&#39;starting&#39;</span><span class="p">,</span> <span class="s1">&#39;stopping&#39;</span><span class="p">,</span> <span class="s1">&#39;interrupted&#39;</span><span class="p">,</span> <span class="s1">&#39;stashing&#39;</span><span class="p">,</span> <span class="s1">&#39;resuming&#39;</span><span class="p">)</span>
-    <span class="n">stateChanged</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span> <span class="nb">object</span> <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">Form</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">Base</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">stateChanged</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span> <span class="nb">str</span> <span class="p">)</span><span class="c1">#object )</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Form</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Base</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OpStates</span><span class="o">.</span><span class="n">idle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>     <span class="c1"># time of last start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># time spent on run before last start </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">expected</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastPercentage</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastTime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeats</span> <span class="o">=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="ScanProgress.getData"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.getData">[docs]</a>    <span class="k">def</span> <span class="nf">getData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startTime</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span><span class="p">)</span></div>
@@ -176,7 +197,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluationLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">analysisLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ScanProgress.__getattr__"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="ScanProgress.__getattr__"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.__getattr__">[docs]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;generates the is_idle, is_running, ... attributes&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;is_&#39;</span><span class="p">:</span>
             <span class="n">desiredState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OpStates</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
@@ -211,7 +232,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">startTime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span> <span class="s2">&quot;QWidget { background: #ffffff; }&quot;</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="ScanProgress.setRunning"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.setRunning">[docs]</a>    <span class="k">def</span> <span class="nf">setRunning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
+<div class="viewcode-block" id="ScanProgress.setRunning"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.setRunning">[docs]</a>    <span class="k">def</span> <span class="nf">setRunning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">statusLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">total</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
@@ -224,7 +245,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span> <span class="s2">&quot;QWidget { background: #a0ffa0; }&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">startTimer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">=</span> <span class="mi">0</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeats</span> <span class="o">=</span> <span class="n">repeats</span></div>
         
 <div class="viewcode-block" id="ScanProgress.resumeRunning"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.resumeRunning">[docs]</a>    <span class="k">def</span> <span class="nf">resumeRunning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">statusLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>    
@@ -270,22 +292,30 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">+=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">startTime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span> <span class="s2">&quot;QWidget { background: #ffa0a0; }&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stopTimer</span><span class="p">()</span></div>
-       
+
 <div class="viewcode-block" id="ScanProgress.onData"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.onData">[docs]</a>    <span class="k">def</span> <span class="nf">onData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">expected</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">index</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">))</span> <span class="k">if</span> <span class="n">index</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setTimeLabel</span><span class="p">()</span></div>
-        
+        <span class="n">percentage</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">))</span> <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeats</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">OpStates</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="n">current_repeat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeats</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statusLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Running (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_repeat</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">percentage</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastPercentage</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastTime</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastPercentage</span> <span class="o">=</span> <span class="n">percentage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lastTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setTimeLabel</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="ScanProgress.elapsedTime"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.elapsedTime">[docs]</a>    <span class="k">def</span> <span class="nf">elapsedTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">+</span> <span class="p">(</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">OpStates</span><span class="o">.</span><span class="n">running</span> <span class="k">else</span> <span class="mi">0</span> <span class="p">)</span></div>
- 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">previouslyElapsedTime</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">OpStates</span><span class="o">.</span><span class="n">running</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ScanProgress.setTimeLabel"><a class="viewcode-back" href="../../code/gui-doc.html#gui.ScanProgress.ScanProgress.setTimeLabel">[docs]</a>    <span class="k">def</span> <span class="nf">setTimeLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> / </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="p">())),</span>
-                                                   <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected</span><span class="p">))))</span> </div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeLabel</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> / </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="p">())),</span>
+                                                  <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expected</span><span class="p">))))</span></div></div>
 
 
 
-<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
@@ -298,6 +328,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -306,11 +337,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -325,34 +356,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

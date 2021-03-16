@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -22,23 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="IonControl 0.8 documentation" href="../index.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +77,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FPGAhardware.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../manual/experimentUi_manual.html">User Manual</a></li>
@@ -96,34 +97,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">IonControl</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">IonControl</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>logicAnalyzer</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>logicAnalyzer</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/code/logicAnalyzer-doc.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/code/logicAnalyzer-doc.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -133,176 +154,80 @@
 <h1>logicAnalyzer<a class="headerlink" href="#logicanalyzer" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>LogicAnalyzer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-logicAnalyzer.LogicAnalyzer"></span><dl class="class">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer">
-<em class="property">class </em><code class="descname">LogicAnalyzer</code><span class="sig-paren">(</span><em>config</em>, <em>pulserHardware</em>, <em>channelNameData</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.OpStates">
-<code class="descname">OpStates</code><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.OpStates" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.closeEvent">
-<code class="descname">closeEvent</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.closeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.closeEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.evaluateData">
-<code class="descname">evaluateData</code><span class="sig-paren">(</span><em>logicData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.evaluateData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.evaluateData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onClose">
-<code class="descname">onClose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onClose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onClose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onData">
-<code class="descname">onData</code><span class="sig-paren">(</span><em>logicData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onRun">
-<code class="descname">onRun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onRun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onRun" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onShow">
-<code class="descname">onShow</code><span class="sig-paren">(</span><em>show</em>, <em>checked</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onShow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onShow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onSingle">
-<code class="descname">onSingle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onSingle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onSingle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onStop">
-<code class="descname">onStop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.onStop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.onStop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.plotData">
-<code class="descname">plotData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.plotData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.plotData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.refresh">
-<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.saveConfig">
-<code class="descname">saveConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.saveConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.saveConfig" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusRunning">
-<code class="descname">setStatusRunning</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.setStatusRunning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusRunning" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusSingle">
-<code class="descname">setStatusSingle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.setStatusSingle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusSingle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusStopped">
-<code class="descname">setStatusStopped</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.setStatusStopped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setStatusStopped" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setupUi">
-<code class="descname">setupUi</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#LogicAnalyzer.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.LogicAnalyzer.setupUi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="logicAnalyzer.LogicAnalyzer.Settings">
-<em class="property">class </em><code class="descname">Settings</code><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#Settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.Settings" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="logicAnalyzer.LogicAnalyzer.bitEvaluate">
-<code class="descname">bitEvaluate</code><span class="sig-paren">(</span><em>numChannels</em>, <em>thisval</em>, <em>lastval=None</em>, <em>channelOffset=0</em>, <em>trigger=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzer.html#bitEvaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzer.bitEvaluate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-logicAnalyzer.LogicAnalyzerSignalTableModel">
 <span id="logicanalyzersignaltablemodel"></span><h2>LogicAnalyzerSignalTableModel<a class="headerlink" href="#module-logicAnalyzer.LogicAnalyzerSignalTableModel" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel">
-<em class="property">class </em><code class="descname">LogicAnalyzerSignalTableModel</code><span class="sig-paren">(</span><em>config</em>, <em>channelNameData</em>, <em>parent=None</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-name descname">LogicAnalyzerSignalTableModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">channelNameData</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelName">
-<code class="descname">auxChannelName</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.auxChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">auxChannelName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.auxChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelNames">
-<code class="descname">auxChannelNames</code><em class="property"> = ['dds write done', 'out fifo full', 'in fifo empty', 'ram fifo valid', 'DDS 0 CS', 'DDS 1 CS', 'DDS 2 CS', 'DDS 3 CS', 'DDS 4 CS', 'DDS 5 CS']</em><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelNames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">auxChannelNames</code><em class="property"> = ['dds write done', 'out fifo full', 'in fifo empty', 'ram fifo valid', 'DDS 0 CS', 'DDS 1 CS', 'DDS 2 CS', 'DDS 3 CS', 'DDS 4 CS', 'DDS 5 CS']</em><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.auxChannelNames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.channelName">
-<code class="descname">channelName</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.channelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.channelName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">channelName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.channelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.channelName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.columnCount">
-<code class="descname">columnCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt5.QtCore.QModelIndex object at 0x000002665F562C88&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>index</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">Qt.DisplayRole</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.enableChanged">
-<code class="descname">enableChanged</code><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.enableChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">enableChanged</code><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.enableChanged" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.flags">
-<code class="descname">flags</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.flags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; Qt.ItemFlags<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.flags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.gateChannelName">
-<code class="descname">gateChannelName</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.gateChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.gateChannelName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gateChannelName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.gateChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.gateChannelName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.headerData">
-<code class="descname">headerData</code><span class="sig-paren">(</span><em>section</em>, <em>orientation</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.headerData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">int</em>, <em class="sig-param">Qt.Orientation</em>, <em class="sig-param">role: int = Qt.DisplayRole</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.headerData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.primaryChannelName">
-<code class="descname">primaryChannelName</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.primaryChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.primaryChannelName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">primaryChannelName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.primaryChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.primaryChannelName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.rowCount">
-<code class="descname">rowCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt5.QtCore.QModelIndex object at 0x000002665F562F98&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.saveConfig">
-<code class="descname">saveConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.saveConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.saveConfig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">saveConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.saveConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.saveConfig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.setData">
-<code class="descname">setData</code><span class="sig-paren">(</span><em>index</em>, <em>value</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.setData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">Any</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">Qt.EditRole</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.setData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.triggerChannelName">
-<code class="descname">triggerChannelName</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.triggerChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.triggerChannelName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">triggerChannelName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerSignalTableModel.html#LogicAnalyzerSignalTableModel.triggerChannelName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerSignalTableModel.LogicAnalyzerSignalTableModel.triggerChannelName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -310,79 +235,79 @@
 </div>
 <div class="section" id="module-logicAnalyzer.LogicAnalyzerTraceTableModel">
 <span id="logicanalyzertracetablemodel"></span><h2>LogicAnalyzerTraceTableModel<a class="headerlink" href="#module-logicAnalyzer.LogicAnalyzerTraceTableModel" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel">
-<em class="property">class </em><code class="descname">LogicAnalyzerTraceTableModel</code><span class="sig-paren">(</span><em>config</em>, <em>signalTableModel</em>, <em>parent=None</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
+<em class="property">class </em><code class="sig-name descname">LogicAnalyzerTraceTableModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">signalTableModel</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.colorLookup">
-<code class="descname">colorLookup</code><em class="property"> = {0: &lt;PyQt5.QtGui.QColor object at 0x000002665F138048&gt;, 1: &lt;PyQt5.QtGui.QColor object at 0x000002665F562E48&gt;, None: &lt;PyQt5.QtGui.QColor object at 0x000002665F1380B8&gt;, -1: &lt;PyQt5.QtGui.QColor object at 0x000002665F562DD8&gt;}</em><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.colorLookup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">colorLookup</code><em class="property"> = {-1: &lt;PyQt5.QtGui.QColor object&gt;, 1: &lt;PyQt5.QtGui.QColor object&gt;, 0: &lt;PyQt5.QtGui.QColor object&gt;, None: &lt;PyQt5.QtGui.QColor object&gt;}</em><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.colorLookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.columnCount">
-<code class="descname">columnCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt5.QtCore.QModelIndex object at 0x000002665F562BA8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>index</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">Qt.DisplayRole</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.eliminateEmptyRows">
-<code class="descname">eliminateEmptyRows</code><span class="sig-paren">(</span><em>rawPulseData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.eliminateEmptyRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.eliminateEmptyRows" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">eliminateEmptyRows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rawPulseData</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.eliminateEmptyRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.eliminateEmptyRows" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.flags">
-<code class="descname">flags</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.flags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; Qt.ItemFlags<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.flags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.headerData">
-<code class="descname">headerData</code><span class="sig-paren">(</span><em>section</em>, <em>orientation</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.headerData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">int</em>, <em class="sig-param">Qt.Orientation</em>, <em class="sig-param">role: int = Qt.DisplayRole</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.headerData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.onEnabledChannelsChanged">
-<code class="descname">onEnabledChannelsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.onEnabledChannelsChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.onEnabledChannelsChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">onEnabledChannelsChanged</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.onEnabledChannelsChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.onEnabledChannelsChanged" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.pulseDataLookup">
-<code class="descname">pulseDataLookup</code><span class="sig-paren">(</span><em>timestep</em>, <em>signal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.pulseDataLookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.pulseDataLookup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pulseDataLookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timestep</span></em>, <em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.pulseDataLookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.pulseDataLookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.rowCount">
-<code class="descname">rowCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt5.QtCore.QModelIndex object at 0x000002665F562748&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.saveConfig">
-<code class="descname">saveConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.saveConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.saveConfig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">saveConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.saveConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.saveConfig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setPulseData">
-<code class="descname">setPulseData</code><span class="sig-paren">(</span><em>pulseData</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setPulseData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setPulseData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setPulseData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pulseData</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setPulseData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setPulseData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTime">
-<code class="descname">setReferenceTime</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setReferenceTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTime" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setReferenceTime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setReferenceTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTimeCell">
-<code class="descname">setReferenceTimeCell</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setReferenceTimeCell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTimeCell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setReferenceTimeCell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#LogicAnalyzerTraceTableModel.setReferenceTimeCell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.LogicAnalyzerTraceTableModel.setReferenceTimeCell" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="logicAnalyzer.LogicAnalyzerTraceTableModel.anyNonZero">
-<code class="descname">anyNonZero</code><span class="sig-paren">(</span><em>dictionary</em>, <em>keys</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#anyNonZero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.anyNonZero" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">anyNonZero</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">keys</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logicAnalyzer/LogicAnalyzerTraceTableModel.html#anyNonZero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#logicAnalyzer.LogicAnalyzerTraceTableModel.anyNonZero" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -390,6 +315,7 @@
 
 
            </div>
+           
           </div>
           <footer>
   
@@ -398,11 +324,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -417,34 +343,24 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.8',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
