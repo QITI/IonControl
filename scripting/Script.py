@@ -191,7 +191,7 @@ class Script(QtCore.QThread):
                         self.emitLocation()
                         if self.slow:
                             self.mutex.unlock()
-                            time.sleep(0.4) #On slow, we wait on each line for 0.4 s 
+                            time.sleep(0.1) #On slow, we wait on each line for 0.4 s 
                             self.mutex.lock() 
                         if waitForAnalysis and not self.analysisReady:
                             self.analysisWait.wait(self.mutex)
