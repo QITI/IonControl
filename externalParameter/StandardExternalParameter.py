@@ -321,15 +321,20 @@ if rfcontroller_enabled:
             ("frequency_optpump_eom", 'MHz'),
             ("frequency_microwave_modulation", 'MHz'),
             ("frequency_dmd_aom", 'MHz'),
+            ("frequency_four_rod_raman_1_aom", 'MHz'),
+            ("frequency_four_rod_raman_2_lo", 'MHz'),
             ("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
             ("power_optpump_eom", ''),
             ("power_microwave_modulation", ''),
+            ("power_four_rod_raman_2_lo", ''),
             ("power_dmd_aom", ''),
+            ("power_four_rod_raman_1_aom", ''),
             ("output_state_cooling_eom",''),
-            ("output_state_microwave_modulation", '')
+            ("output_state_microwave_modulation", ''),
+            ("output_state_four_rod_raman_2_lo", '')
         ])
 
         _outputLookup = {
@@ -340,6 +345,8 @@ if rfcontroller_enabled:
             'frequency_optpump_eom': ("four_rod_optpump_eom", "frequency"),
             'frequency_microwave_modulation': ("four_rod_microwave_modulation", "frequency"),
             'frequency_dmd_aom': ("four_rod_dmd_aom", "frequency"),
+            'frequency_four_rod_raman_1_aom': ("four_rod_raman_1", "frequency"),
+            'frequency_four_rod_raman_2_lo': ("four_rod_raman_2", "frequency"),
             'power_cooling_eom': ("four_rod_cooling_eom", "power"),
             'power_detection_aom': ("four_rod_detection_aom", "power"),
             'power_repump_eom': ("four_rod_repump_eom", "power"),
@@ -347,8 +354,11 @@ if rfcontroller_enabled:
             'power_optpump_eom': ("four_rod_optpump_eom", "power"),
             'power_microwave_modulation': ("four_rod_microwave_modulation", "power"),
             'power_dmd_aom': ("four_rod_dmd_aom", "power"),
+            'power_four_rod_raman_1_aom': ("four_rod_raman_1", "power"),
+            'power_four_rod_raman_2_lo': ("four_rod_raman_2", "power"),
             'output_state_cooling_eom': ("four_rod_cooling_eom", "output_state"),
-            'output_state_microwave_modulation': ("four_rod_microwave_modulation", "output_state")
+            'output_state_microwave_modulation': ("four_rod_microwave_modulation", "output_state"),
+            'output_state_four_rod_raman_2_lo': ("four_rod_raman_2", "output_state")
         }
 
         # TODO: pint doesn't support pint. Modify pint?
@@ -387,6 +397,7 @@ if rfcontroller_enabled:
         def setValue(self, channel, v):
             rf_channel, parameter_name = self._outputLookup[channel]
             parameter = v.m_as(self._unitLookup[parameter_name])
+            print(channel, parameter, v)
             parameter = self._setTypeLookup[parameter_name](parameter)
             getattr(self.client, "set_" + parameter_name)(rf_channel, parameter)
             return v
@@ -401,6 +412,73 @@ if rfcontroller_enabled:
             project = getProject()
             instrument_list = project.hardware.get('QITI RF Controller').keys()
             return instrument_list
+
+dmd_enabled = project.isEnabled('hardware', 'LuxbeamController')
+
+if dmd_enabled:
+    try:
+        from pySLM2.util import LuxbeamController
+        import numpy as np
+    except ImportError as err:
+        print(err)
+        importErrorPopup('LuxbeamController')
+
+
+    class Luxbeam4600Control(ExternalParameterBase):
+        className = "LuxbeamController"
+        _outputChannels = OrderedDict([
+            ("hologram_idx", '')
+        ])
+
+        def __init__(self, name, config, globalDict, instrument):
+            global DMD_HOLOGRAM_DATABASE
+            DMD_HOLOGRAM_DATABASE = []
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('LuxbeamController')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+
+            invert = instrument.get('invert(y/n)')
+            self.data_dir = instrument.get('data_dir')
+
+            if invert=="y":
+                invert = True
+            elif invert=="n":
+                invert= False
+
+            self.luxbeam = LuxbeamController(ip_addr, invert=invert)
+            self.luxbeam.initialize()
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+            self.i = -1.0
+
+        def setValue(self, channel, v):
+            assert channel=="hologram_idx"
+            parameter = v.m_as("")
+
+            parameter = int(parameter)
+            self.i = float(parameter)
+
+            img = np.load(self.data_dir + "{}.npy".format(parameter))
+
+            self.luxbeam.load_single(img)
+            return v
+
+        def getExternalValue(self, channel=None):
+            assert channel == "hologram_idx"
+            return Q(self.i, '')
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('LuxbeamController').keys()
+            return instrument_list
+
 
 
 sana_enabled = project.isEnabled('hardware', 'QITI SANA')
@@ -455,4 +533,60 @@ if sana_enabled:
             project = getProject()
             instrument_list = project.hardware.get('QITI SANA').keys()
             return instrument_list
-        
+
+toptica935Enabled = project.isEnabled('hardware', 'QITI Toptica 935nm')
+
+if toptica935Enabled:
+    try:
+        from toptica.lasersdk.client import Client as TopticaClient, NetworkConnection as TopticaNetworkConnection
+
+    except ImportError as err:
+        print(err)
+        importErrorPopup('935nm Toptica SDK')
+
+
+    class toptica935Control(ExternalParameterBase):
+        className = "QITI Toptica 935nm"
+        _outputChannels = OrderedDict([
+            ("laser_current", 'mA'),
+            ("piezo_voltage", 'V'),
+        ])
+
+        _outputLookup = {
+            'laser_current': "laser1:dl:cc:current-set",
+            'piezo_voltage': "laser1:dl:pc:voltage-set",
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Toptica 935nm')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = TopticaClient(TopticaNetworkConnection(ip_addr))
+            self.client.open()
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            toptica_param = self._outputLookup[channel]
+            unit = self._outputChannels[channel]
+            parameter = v.m_as(unit)
+            parameter = float(parameter)
+            self.client.set(toptica_param, parameter)
+            return v
+
+        def getExternalValue(self, channel=None):
+            toptica_param = self._outputLookup[channel]
+            parameter = self.client.get(toptica_param)
+            unit = self._outputChannels[channel]
+            return Q(parameter, unit)
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get("QITI Toptica 935nm").keys()
+            return instrument_list

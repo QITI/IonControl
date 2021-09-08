@@ -123,3 +123,15 @@ hardware:
     fields:
       ipAddress: str
       port: str
+
+  QITI Toptica 935nm:
+    description: Interface to control 935nm laser using toptica controller
+    fields:
+      ipAddress: str
+
+  LuxbeamController:
+    description: TEST
+    fields:
+      ipAddress: str
+      invert(y/n): str
+      data_dir: str
