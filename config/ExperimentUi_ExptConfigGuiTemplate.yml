@@ -141,3 +141,10 @@ hardware:
     fields:
       ipAddress: str
       port: str
+      
+  QITI TTL Voltage Switcher:
+    description: Red pitaya based device to switch between voltages on a DAC on TTL input https://github.com/QITI/TTL_voltage_switcher
+    fields:
+      ipAddress: str
+      port: str
+    

@@ -590,6 +590,63 @@ if sana_enabled:
             instrument_list = project.hardware.get('QITI SANA').keys()
             return instrument_list
 
+
+ttl_switcher_enabled = project.isEnabled('hardware', 'QITI TTL Voltage Switcher')
+
+if ttl_switcher_enabled:
+    try:
+        from QITI_TTL_voltage_switcher.py import TTLVoltageSwitcherClient
+    except ImportError as err:
+        print(err)
+        importErrorPopup('QITI TTL Voltage Switcher')
+
+    class TTLVoltageSwitcher(ExternalParameterBase):
+        className = "TTLVoltageSwitcher"
+        _outputChannels = OrderedDict([
+            ("voltage_setpoint_high", 'V'),
+            ("voltage_setpoint_low", 'V'),
+        ])
+
+        _outputLookup = {
+            'voltage_setpoint_high': ["set_voltage_high","get_voltage_high"],
+            'voltage_setpoint_low': ["set_voltage_low","get_voltage_low"],
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI TTL Voltage Switcher')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = TTLVoltageSwitcherClient(ip_addr + ':' + port)
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+        
+        def setValue(self, channel, v):
+            func_name = self._outputLookup[channel][0]
+            parameter = v.m_as("V")
+            parameter = float(parameter)
+            v_return = getattr(self.client,func_name)(parameter)
+            return v_return
+
+        def getExternalValue(self, channel=None):
+            func_name = self._outputLookup[channel][1]
+            parameter = getattr(self.client,func_name)()
+            return Q(parameter, 'V')
+
+        @staticmethod
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI TTL Voltage Switcher').keys()
+            return instrument_list
+
+
+
 toptica935Enabled = project.isEnabled('hardware', 'QITI Toptica 935nm')
 
 if toptica935Enabled:
