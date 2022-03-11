@@ -15,3 +15,6 @@
 [submodule "QITI_four_rod_oven_controller"]
 	path = QITI_four_rod_oven_controller
 	url = https://github.com/QITI/four_rod_oven_controller.git
+[submodule "PI_ADC"]
+	path = PI_ADC
+	url = https://github.com/QITI/PI_ADC.git

@@ -135,3 +135,9 @@ hardware:
       ipAddress: str
       invert(y/n): str
       data_dir: str
+
+  QITI PI ADC:
+    description: Interface with a Raspberry Pi server that controls an ADC. Check http://pi-adc.qiti/
+    fields:
+      ipAddress: str
+      port: str

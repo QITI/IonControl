@@ -323,6 +323,7 @@ if rfcontroller_enabled:
             ("frequency_dmd_aom", 'MHz'),
             ("frequency_four_rod_raman_1_aom", 'MHz'),
             ("frequency_four_rod_raman_2_lo", 'MHz'),
+            ("frequency_four_rod_dmd_optpump_eom", 'MHz'),
             ("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
@@ -332,6 +333,7 @@ if rfcontroller_enabled:
             ("power_four_rod_raman_2_lo", ''),
             ("power_dmd_aom", ''),
             ("power_four_rod_raman_1_aom", ''),
+            ("power_four_rod_dmd_optpump_eom", ''),
             ("output_state_cooling_eom",''),
             ("output_state_microwave_modulation", ''),
             ("output_state_four_rod_raman_2_lo", '')
@@ -347,6 +349,7 @@ if rfcontroller_enabled:
             'frequency_dmd_aom': ("four_rod_dmd_aom", "frequency"),
             'frequency_four_rod_raman_1_aom': ("four_rod_raman_1", "frequency"),
             'frequency_four_rod_raman_2_lo': ("four_rod_raman_2", "frequency"),
+            'frequency_four_rod_dmd_optpump_eom': ("four_rod_dmd_optpump_eom", "frequency"),
             'power_cooling_eom': ("four_rod_cooling_eom", "power"),
             'power_detection_aom': ("four_rod_detection_aom", "power"),
             'power_repump_eom': ("four_rod_repump_eom", "power"),
@@ -356,6 +359,7 @@ if rfcontroller_enabled:
             'power_dmd_aom': ("four_rod_dmd_aom", "power"),
             'power_four_rod_raman_1_aom': ("four_rod_raman_1", "power"),
             'power_four_rod_raman_2_lo': ("four_rod_raman_2", "power"),
+            'power_four_rod_dmd_optpump_eom': ("four_rod_dmd_optpump_eom", "power"),
             'output_state_cooling_eom': ("four_rod_cooling_eom", "output_state"),
             'output_state_microwave_modulation': ("four_rod_microwave_modulation", "output_state"),
             'output_state_four_rod_raman_2_lo': ("four_rod_raman_2", "output_state")
@@ -411,6 +415,58 @@ if rfcontroller_enabled:
         def connectedInstruments(self):
             project = getProject()
             instrument_list = project.hardware.get('QITI RF Controller').keys()
+            return instrument_list
+
+piadc_enabled = project.isEnabled('hardware', 'QITI PI ADC')
+
+if piadc_enabled:
+    try:
+        from PI_ADC.PiADC import PiADCWebClient
+    except ImportError:
+        importErrorPopup("PI ADC")
+
+
+    class PiADC(ExternalParameterBase):
+        className = "PI ADC"
+        _outputChannels = OrderedDict([
+            ("pi_adc_ch0", 'V'),
+            ("pi_adc_ch1", 'V'),
+            ("pi_adc_ch2", 'V'),
+            ("pi_adc_ch3", 'V'),
+            ("pi_adc_ch4", 'V'),
+            ("pi_adc_ch5", 'V'),
+            ("pi_adc_ch6", 'V'),
+            ("pi_adc_ch7", 'V')
+        ])
+
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI RF Controller')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = PiADCWebClient.PiADCWebClient(ip_addr + ':' + port)
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            return v
+
+        def getExternalValue(self, channel=None):
+            channel_num = int(channel[-1])
+            parameter = self.client.read_channel(channel_num)
+            return Q(parameter, "V")
+
+        @staticmethod
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI PI ADC').keys()
             return instrument_list
 
 dmd_enabled = project.isEnabled('hardware', 'LuxbeamController')
