@@ -147,4 +147,9 @@ hardware:
     fields:
       ipAddress: str
       port: str
-    
+
+  QITI AWG Single Replay Mode:
+    description: AWG
+    fields:
+      driver_path: str
+      data_dir: str

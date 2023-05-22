@@ -717,15 +717,19 @@ class ScanExperiment(ScanExperimentForm, MainWindowWidget.MainWindowWidget):
             logger = logging.getLogger(__name__)
             logger.info( "finalize Data reason: {0}".format(reason) )
             saveData = reason != 'aborted'
+            allData = dict()
             if self.context.otherDataFile is not None:
+                allData['otherDataFileName'] = self.context.otherDataFile.name
                 self.context.otherDataFile.close()
                 self.context.otherDataFile = None
             if self.context.rawDataFile is not None:
+                allData['rawDataFileName'] = self.context.rawDataFile.name
                 self.context.rawDataFile.close()
                 self.context.rawDataFile = None
                 logging.getLogger(__name__).info("Closed raw data file")
             for trace in ([self.context.currentTimestampTrace]+[self.context.plottedTraceList[0].traceCollection] if self.context.plottedTraceList else[]):
                 if trace:
+                    allData["dataFileName"] = trace.filename
                     trace.description["traceFinalized"] = datetime.now(pytz.utc)
                     if trace.autoSave:
                         trace.save()
@@ -735,7 +739,7 @@ class ScanExperiment(ScanExperimentForm, MainWindowWidget.MainWindowWidget):
             if self.context.scan.histogramSave:
                 self.onSaveHistogram(self.context.scan.histogramFilename if self.context.scan.histogramFilename else None)
             self.context.dataFinalized = reason
-            allData = {self.p.name:(self.p.x, self.p.y) for self.p in self.context.plottedTraceList}
+            allData.update({self.p.name:(self.p.x, self.p.y) for self.p in self.context.plottedTraceList})
             self.allDataSignal.emit(allData)
         
     def dataAnalysis(self):

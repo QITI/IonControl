@@ -314,17 +314,18 @@ if rfcontroller_enabled:
     class RFController(ExternalParameterBase):
         className = "RF Controller"
         _outputChannels = OrderedDict([
-            ("frequency_cooling_eom", 'MHz'),
+            #("frequency_cooling_eom", 'MHz'),
             ("frequency_detection_aom", 'MHz'),
             ("frequency_repump_eom", 'MHz'),
             ("frequency_cooling_aom", 'MHz'),
             ("frequency_optpump_eom", 'MHz'),
             ("frequency_microwave_modulation", 'MHz'),
             ("frequency_dmd_aom", 'MHz'),
-            ("frequency_four_rod_raman_1_aom", 'MHz'),
+            ("frequency_four_rod_weak_optical_pumping", 'MHz'),
             ("frequency_four_rod_raman_2_lo", 'MHz'),
             ("frequency_four_rod_dmd_optpump_eom", 'MHz'),
-            ("power_cooling_eom", ''),
+            ("frequency_four_rod_raman_1_aom", 'MHz'),
+            #("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
@@ -332,11 +333,14 @@ if rfcontroller_enabled:
             ("power_microwave_modulation", ''),
             ("power_four_rod_raman_2_lo", ''),
             ("power_dmd_aom", ''),
-            ("power_four_rod_raman_1_aom", ''),
+            ("power_four_rod_weak_optical_pumping", ''),
             ("power_four_rod_dmd_optpump_eom", ''),
-            ("output_state_cooling_eom",''),
+            ("power_four_rod_raman_1_aom", ''),
+            #("output_state_cooling_eom",''),
             ("output_state_microwave_modulation", ''),
-            ("output_state_four_rod_raman_2_lo", '')
+            ("output_state_four_rod_raman_2_lo", ''),
+            ("vernier_dmd_aom", ''),
+            ("vernier_four_rod_weak_optical_pumping",'')
         ])
 
         _outputLookup = {
@@ -347,9 +351,10 @@ if rfcontroller_enabled:
             'frequency_optpump_eom': ("four_rod_optpump_eom", "frequency"),
             'frequency_microwave_modulation': ("four_rod_microwave_modulation", "frequency"),
             'frequency_dmd_aom': ("four_rod_dmd_aom", "frequency"),
-            'frequency_four_rod_raman_1_aom': ("four_rod_raman_1", "frequency"),
+            'frequency_four_rod_weak_optical_pumping': ("four_rod_weak_optical_pumping", "frequency"),
             'frequency_four_rod_raman_2_lo': ("four_rod_raman_2", "frequency"),
             'frequency_four_rod_dmd_optpump_eom': ("four_rod_dmd_optpump_eom", "frequency"),
+            'frequency_four_rod_raman_1_aom': ("four_rod_raman_1_aom", "frequency"),
             'power_cooling_eom': ("four_rod_cooling_eom", "power"),
             'power_detection_aom': ("four_rod_detection_aom", "power"),
             'power_repump_eom': ("four_rod_repump_eom", "power"),
@@ -357,30 +362,36 @@ if rfcontroller_enabled:
             'power_optpump_eom': ("four_rod_optpump_eom", "power"),
             'power_microwave_modulation': ("four_rod_microwave_modulation", "power"),
             'power_dmd_aom': ("four_rod_dmd_aom", "power"),
-            'power_four_rod_raman_1_aom': ("four_rod_raman_1", "power"),
+            'power_four_rod_weak_optical_pumping': ("four_rod_weak_optical_pumping", "power"),
             'power_four_rod_raman_2_lo': ("four_rod_raman_2", "power"),
             'power_four_rod_dmd_optpump_eom': ("four_rod_dmd_optpump_eom", "power"),
+            'power_four_rod_raman_1_aom': ("four_rod_raman_1_aom", "power"),
             'output_state_cooling_eom': ("four_rod_cooling_eom", "output_state"),
             'output_state_microwave_modulation': ("four_rod_microwave_modulation", "output_state"),
-            'output_state_four_rod_raman_2_lo': ("four_rod_raman_2", "output_state")
+            'output_state_four_rod_raman_2_lo': ("four_rod_raman_2", "output_state"),
+            'vernier_dmd_aom': ("four_rod_dmd_aom", "vernier"),
+            "vernier_four_rod_weak_optical_pumping":("four_rod_weak_optical_pumping","vernier")
         }
 
         # TODO: pint doesn't support pint. Modify pint?
         _unitLookup = {
             "frequency": "Hz",
             "power": "",
-            "output_state":""
+            "output_state":"",
+            "vernier":""
         }
 
         _setTypeLookup = {
             "frequency": int,
             "power": float,
-            "output_state":bool
+            "output_state":bool,
+            "vernier":int
         }
         _getTypeLookup = {
             "frequency": int,
             "power": float,
-            "output_state":int
+            "output_state":int,
+            "vernier":int
         }
 
         def __init__(self, name, config, globalDict, instrument):
@@ -408,6 +419,7 @@ if rfcontroller_enabled:
 
         def getExternalValue(self, channel=None):
             rf_channel, parameter_name = self._outputLookup[channel]
+            #print("rf controller", rf_channel, parameter_name)
             parameter = getattr(self.client, "get_" + parameter_name)(rf_channel)
             parameter = self._getTypeLookup[parameter_name](parameter)
             return Q(parameter, self._unitLookup[parameter_name])
@@ -702,4 +714,124 @@ if toptica935Enabled:
         def connectedInstruments(self):
             project = getProject()
             instrument_list = project.hardware.get("QITI Toptica 935nm").keys()
+            return instrument_list
+
+awg_singleReplayMode = project.isEnabled('hardware', 'QITI AWG Single Replay Mode')
+
+if awg_singleReplayMode:
+    try:
+        from spcm.spcm import DrvHandle, GatedReplayMode, SingleReplayMode, SingleReplayRestartMode
+        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK, SPCM_XMODE
+        import numpy as np
+        import h5py
+
+    except Exception as err:
+        print(err)
+        importErrorPopup('QITI AWG Single Replay Mode')
+
+    class AWGSingleReplayMode(ExternalParameterBase):
+        className = "QITI AWG Single Replay Mode"
+        _outputChannels = OrderedDict([
+            ("waveform_idx", ''),
+            #("loops", '')
+            ("use_external_trigger", ''),
+            ("sample_rate", '')
+        ])
+
+        def __init__(self, name, config, globalDict, instrument):
+            print("Initialializing AWG......")
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI AWG Single Replay Mode')
+            instrument = instrument_list[instrument]
+            driver_path = instrument.get('driver_path')
+
+            self.data_dir = instrument.get('data_dir')
+            #self.database = h5py.File(self.data_dir + "awg.hdf5", 'a')
+
+
+            self.d = SingleReplayRestartMode(driver_path)
+
+            #self.d.sample_rate = int(600_000_000)
+            print(self.d.sample_rate)
+
+            self.d.loops = 0
+            self.d.reference_clock = int(10e6) # 10MHz reference clock
+            self.d.clock_mode = SPC_CM.SPC_CM_EXTREFCLOCK
+
+            self.d.enable_output(0)  # enable channel 0 output
+
+            self.d.trig_ext0_mode = SPC_TM.SPC_TM_POS # use positive edge trigger
+
+            self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
+
+            # Multi-purpose digitial IO 0 output the run state
+            self.d.x0_mode = SPCM_XMODE.SPCM_XMODE_RUNSTATE
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+            self.i = -1.0
+            print("Initialized!")
+
+
+        def setValue(self, channel, v):
+            self.d.stop()  # stop the card activity
+            if channel == "waveform_idx":
+                parameter = v.m_as("")
+
+                parameter = int(parameter)
+
+                if parameter >= 0:
+                    print("loading waveform...")
+                    #waveform = self.database['{}'.format(parameter)][:]
+
+                    waveform = np.load(self.data_dir + "awg_{}.npy".format(parameter))
+                    print("loaded")
+                    #print(waveform)
+                    n = waveform.shape[0]
+                    print(n)
+                    self.d.mem_size = n
+                    self.d.transfer_data(waveform)
+                    self.d.start()
+                    print("started")
+
+                self.i = float(parameter)
+            elif channel == "loops":
+                parameter = v.m_as("")
+                self.d.loops = int(parameter)
+                self.d.start()
+
+            elif channel == "use_external_trigger":
+                parameter = v.m_as("")
+                use_external_trigger =  bool(parameter)
+                if use_external_trigger:
+                    self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
+                else:
+                    self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_SOFTWARE
+                self.d.start()
+
+            elif channel == "sample_rate":
+                parameter = v.m_as("")
+                print(parameter)
+                sp = int(parameter)
+
+                self.d.sample_rate = sp
+                self.d.start()
+            return v
+
+        def getExternalValue(self, channel=None):
+            if channel == "waveform_idx":
+                return Q(self.i, '')
+            elif channel == "use_external_trigger":
+                return Q(float(self.d.trig_or_mask == SPC_TMASK.SPC_TMASK_EXT0), '')
+            elif channel == "sample_rate":
+                return Q(float(self.d.sample_rate))
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI AWG Single Replay Mode').keys()
             return instrument_list

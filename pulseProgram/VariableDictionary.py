@@ -13,7 +13,9 @@ from modules.Expression import Expression
 from modules.SequenceDict import SequenceDict
 import copy
 
-if float(nx_version) < 2:
+from distutils.version import LooseVersion
+
+if LooseVersion(nx_version) < LooseVersion("2"):
     def nx_indegree_iter(g):
         return g.in_degree_iter()
 else:
