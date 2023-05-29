@@ -6,7 +6,7 @@
 from collections import OrderedDict
 
 import logging
-import numpy
+import numpy,os
 
 from modules.quantity import Q
 from .ExternalParameterBase import ExternalParameterBase
@@ -721,7 +721,7 @@ awg_singleReplayMode = project.isEnabled('hardware', 'QITI AWG Single Replay Mod
 if awg_singleReplayMode:
     try:
         from spcm.spcm import DrvHandle, GatedReplayMode, SingleReplayMode, SingleReplayRestartMode
-        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK, SPCM_XMODE
+        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK#, SPCM_XMODE
         import numpy as np
         import h5py
 
@@ -751,7 +751,7 @@ if awg_singleReplayMode:
             #self.database = h5py.File(self.data_dir + "awg.hdf5", 'a')
 
 
-            self.d = SingleReplayRestartMode(driver_path)
+            self.d = SingleReplayRestartMode(driver_path,channels=(0, 1))
 
             #self.d.sample_rate = int(600_000_000)
             print(self.d.sample_rate)
@@ -761,13 +761,14 @@ if awg_singleReplayMode:
             self.d.clock_mode = SPC_CM.SPC_CM_EXTREFCLOCK
 
             self.d.enable_output(0)  # enable channel 0 output
+            self.d.enable_output(1)  # enable channel 0 output
 
             self.d.trig_ext0_mode = SPC_TM.SPC_TM_POS # use positive edge trigger
 
             self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
 
             # Multi-purpose digitial IO 0 output the run state
-            self.d.x0_mode = SPCM_XMODE.SPCM_XMODE_RUNSTATE
+            # self.d.x0_mode = SPCM_XMODE.SPCM_XMODE_RUNSTATE
 
             # self.initializeChannelsToExternals()
             self.initOutput()
@@ -788,14 +789,20 @@ if awg_singleReplayMode:
                 if parameter >= 0:
                     print("loading waveform...")
                     #waveform = self.database['{}'.format(parameter)][:]
+                    waveform_channel_1_filename = self.data_dir + "awg_{}.npy".format(parameter)
+                    waveform_channel_2_filename = self.data_dir + "awg_channel_2_{}.npy".format(parameter)
+                    waveform_channel_1 = np.load(waveform_channel_1_filename)
+                    if os.path.isfile(waveform_channel_2_filename):
+                        waveform_channel_2 = np.load(waveform_channel_2_filename) 
+                    else:
+                        waveform_channel_2 = waveform_channel_1*0
 
-                    waveform = np.load(self.data_dir + "awg_{}.npy".format(parameter))
                     print("loaded")
                     #print(waveform)
-                    n = waveform.shape[0]
+                    n = waveform_channel_1.shape[0]
                     print(n)
                     self.d.mem_size = n
-                    self.d.transfer_data(waveform)
+                    self.d.transfer_data([waveform_channel_1,waveform_channel_2])
                     self.d.start()
                     print("started")
 
