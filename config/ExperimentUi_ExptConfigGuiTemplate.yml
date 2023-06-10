@@ -153,3 +153,15 @@ hardware:
     fields:
       driver_path: str
       data_dir: str
+
+  QITI Tektonics 5014C:
+    description: Tektronics 5014c AWG
+    fields:
+      ipAddress: str
+      data_dir: str
+
+  QITI AWG Single Replay Mode IQ:
+    description: AWG
+    fields:
+      driver_path: str
+      data_dir: str

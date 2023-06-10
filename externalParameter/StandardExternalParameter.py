@@ -716,6 +716,132 @@ if toptica935Enabled:
             instrument_list = project.hardware.get("QITI Toptica 935nm").keys()
             return instrument_list
 
+
+awg_5014c = project.isEnabled("hardware", "QITI Tektonics 5014C")
+
+if awg_5014c:
+    try:
+        from tex_awg import TekAwg, Waveform
+    except Exception as err:
+        print(err)
+
+    class AWG5014C(ExternalParameterBase):
+        className = "QITI Tektonics 5014C"
+        waveformNAME = "SANDIA"
+        _outputChannels = OrderedDict([
+            ("waveform_idx", ''),
+            #("loops", '')
+            #("use_external_trigger", ''),
+            #("sample_rate", '')
+        ])
+
+        def __init__(self, name, config, globalDict, instrument):
+            print("Initialializing AWG......")
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get("QITI Tektonics 5014C")
+            instrument = instrument_list[instrument]
+            ip = instrument.get('ipAddress')
+
+            if ip is None:
+                raise ValueError("No ip address.")
+
+            self.data_dir = instrument.get('data_dir')
+            #self.database = h5py.File(self.data_dir + "awg.hdf5", 'a')
+            self.awg = TekAwg.connect_to_ip(ip, backend="@py")
+
+            self.awg.write("*RST")
+
+            
+            self.awg.write("AWGCONTROL:RMODE TRIG")
+            self.awg.set_trig_source("EXT")
+
+            # use external reference
+            self.awg.write("SOUR1:ROSC:SOUR EXT")
+            self.awg.write("SOUR1:ROSC:FREQ 10MHz")
+
+            # configure Vpp
+            self.awg.write("SOURCE1:VOLTAGE:AMPLITUDE 1.0")
+            
+            # empty waveform 
+            self.awg.set_chan_state("OFF", "1")
+            self.awg.del_waveform(self.waveformNAME)
+            self.awg.new_waveform(self.waveformNAME, Waveform.from_binary(np.array([0.0, 0.0])))
+            self.awg.write("SOUR1:WAV \"{}\"".format(self.waveformNAME))
+
+            self.awg.set_chan_state("ON", "1")
+            self.awg.run()
+
+            self.initOutput()
+
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+            self.i = -1.0
+            print("Initialized!")
+
+        def setValue(self, channel, v):
+            self.awg.stop()
+            if channel == "waveform_idx":
+                parameter = v.m_as("")
+
+                parameter = int(parameter)
+
+                if parameter >= 0:
+                    self.awg.set_chan_state("OFF", "1")
+                    self.awg.del_waveform(self.waveformNAME)
+                    print("loading waveform...")
+                    waveform = np.load(self.data_dir + "awg_{}.npy".format(parameter))
+                    if waveform.dtype == np.int16:
+                        waveform = waveform.astype(np.float) / (2 ** 15 - 1)
+                    #self.awg.write("*CLS")
+                    self.awg.new_waveform(self.waveformNAME, Waveform.from_binary(waveform))
+                    self.awg.write("SOUR1:WAV \"{}\"".format(self.waveformNAME))
+                    #print(self.awg.query("SYSTEM:ERROR:NEXT?"))
+                    print("loaded")
+                    #print(waveform)
+                    n = waveform.shape[0]
+                    print(n)
+                    self.awg.set_chan_state("ON", "1")
+                    self.awg.run()
+                    print("started")
+
+                self.i = float(parameter)
+
+            elif channel == "use_external_trigger":
+                parameter = v.m_as("")
+                use_external_trigger =  bool(parameter)
+                if use_external_trigger:
+                    self.awg.set_run_mode("TRIG")
+                else:
+                    self.awg.set_run_mode("CONT")
+                self.awg.run()
+
+            elif channel == "sample_rate":
+                parameter = v.m_as("")
+                print(parameter)
+                sp = int(parameter)
+                self.awg.set_freq(sp)
+                self.awg.run()
+
+            # Block until the AWG is in the run state
+            while True:
+                if self.awg.query("AWGControl:RSTate?") == "1":
+                    break
+                time.sleep(1)
+                print("wating for AWG run state")
+            return v
+        
+        def getExternalValue(self, channel=None):
+            if channel == "waveform_idx":
+                return Q(self.i, '')
+            elif channel == "use_external_trigger":
+                return Q(float(self.awg.get_run_mode() == "TRIG"), '')
+            elif channel == "sample_rate":
+                return Q(float(self.awg.get_freq()))
+
+    
+
 awg_singleReplayMode = project.isEnabled('hardware', 'QITI AWG Single Replay Mode')
 
 if awg_singleReplayMode:
@@ -796,6 +922,131 @@ if awg_singleReplayMode:
                     print(n)
                     self.d.mem_size = n
                     self.d.transfer_data(waveform)
+                    self.d.start()
+                    print("started")
+
+                self.i = float(parameter)
+            elif channel == "loops":
+                parameter = v.m_as("")
+                self.d.loops = int(parameter)
+                self.d.start()
+
+            elif channel == "use_external_trigger":
+                parameter = v.m_as("")
+                use_external_trigger =  bool(parameter)
+                if use_external_trigger:
+                    self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
+                else:
+                    self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_SOFTWARE
+                self.d.start()
+
+            elif channel == "sample_rate":
+                parameter = v.m_as("")
+                print(parameter)
+                sp = int(parameter)
+
+                self.d.sample_rate = sp
+                self.d.start()
+            return v
+
+        def getExternalValue(self, channel=None):
+            if channel == "waveform_idx":
+                return Q(self.i, '')
+            elif channel == "use_external_trigger":
+                return Q(float(self.d.trig_or_mask == SPC_TMASK.SPC_TMASK_EXT0), '')
+            elif channel == "sample_rate":
+                return Q(float(self.d.sample_rate))
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI AWG Single Replay Mode').keys()
+            return instrument_list
+
+        
+
+awg_singleReplayModeIQ = project.isEnabled('hardware', 'QITI AWG Single Replay Mode IQ')
+
+if awg_singleReplayModeIQ:
+    try:
+        from spcm.spcm import DrvHandle, GatedReplayMode, SingleReplayMode, SingleReplayRestartMode
+        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK, SPCM_XMODE
+        from spcm import GuardianMiddleware
+        import numpy as np
+        import h5py
+
+    except Exception as err:
+        print(err)
+        importErrorPopup('QITI AWG Single Replay Mode IQ')
+
+    class AWGSingleReplayMode(ExternalParameterBase):
+        className = "QITI AWG Single Replay Mode IQ"
+        _outputChannels = OrderedDict([
+            ("waveform_idx", ''),
+            #("loops", '')
+            ("use_external_trigger", ''),
+            ("sample_rate", '')
+        ])
+
+        def __init__(self, name, config, globalDict, instrument):
+            print("Initialializing AWG......")
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI AWG Single Replay Mode IQ')
+            instrument = instrument_list[instrument]
+            driver_path = instrument.get('driver_path')
+
+            self.data_dir = instrument.get('data_dir')
+            #self.database = h5py.File(self.data_dir + "awg.hdf5", 'a')
+
+
+            self.d = SingleReplayRestartMode(driver_path, channels=(0,1,2,3), middleware = GuardianMiddleware(min_voltage=0))
+
+            #self.d.sample_rate = int(600_000_000)
+            print(self.d.sample_rate)
+
+            self.d.loops = 0
+            self.d.reference_clock = int(10e6) # 10MHz reference clock
+            self.d.clock_mode = SPC_CM.SPC_CM_EXTREFCLOCK
+
+            self.d.enable_output(0)  # enable channel 0 output
+
+            self.d.trig_ext0_mode = SPC_TM.SPC_TM_POS # use positive edge trigger
+
+            self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
+
+            # Multi-purpose digitial IO 0 output the run state
+            self.d.x0_mode = SPCM_XMODE.SPCM_XMODE_RUNSTATE
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+            self.i = -1.0
+            print("Initialized!")
+
+
+        def setValue(self, channel, v):
+            self.d.stop()  # stop the card activity
+            if channel == "waveform_idx":
+                parameter = v.m_as("")
+
+                parameter = int(parameter)
+
+                if parameter >= 0:
+                    print("loading waveform...")
+                    #waveform = self.database['{}'.format(parameter)][:]
+
+                    waveform0 = np.load(self.data_dir + "awg_0_{}.npy".format(parameter))
+                    waveform1 = np.load(self.data_dir + "awg_1_{}.npy".format(parameter))
+                    waveform2 = np.load(self.data_dir + "awg_2_{}.npy".format(parameter))
+                    waveform3 = np.load(self.data_dir + "awg_3_{}.npy".format(parameter))
+                    print("loaded")
+
+                    self.d.transfer_data((
+                        waveform0, waveform1, waveform2, waveform3
+                    ))
                     self.d.start()
                     print("started")
 
