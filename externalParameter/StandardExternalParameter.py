@@ -973,6 +973,7 @@ if awg_singleReplayModeIQ:
         from spcm import GuardianMiddleware
         import numpy as np
         import h5py
+        import gc
 
     except Exception as err:
         print(err)
@@ -1000,7 +1001,7 @@ if awg_singleReplayModeIQ:
             #self.database = h5py.File(self.data_dir + "awg.hdf5", 'a')
 
 
-            self.d = SingleReplayRestartMode(driver_path, channels=(0,1,2,3), middleware = GuardianMiddleware(min_voltage=0))
+            self.d = SingleReplayRestartMode(driver_path, channels=(0,1,2,3), middleware = GuardianMiddleware(min_voltage=0, termination=GuardianMiddleware.Termination.IMPEDANCE_HIGH))
 
             #self.d.sample_rate = int(600_000_000)
             print(self.d.sample_rate)
@@ -1010,6 +1011,9 @@ if awg_singleReplayModeIQ:
             self.d.clock_mode = SPC_CM.SPC_CM_EXTREFCLOCK
 
             self.d.enable_output(0)  # enable channel 0 output
+            self.d.enable_output(1)
+            self.d.enable_output(2)
+            self.d.enable_output(3)
 
             self.d.trig_ext0_mode = SPC_TM.SPC_TM_POS # use positive edge trigger
 
@@ -1048,6 +1052,12 @@ if awg_singleReplayModeIQ:
                         waveform0, waveform1, waveform2, waveform3
                     ))
                     self.d.start()
+                    del waveform0
+                    del waveform1
+                    del waveform2
+                    del waveform3
+
+                    gc.collect()
                     print("started")
 
                 self.i = float(parameter)
