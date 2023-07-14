@@ -3,7 +3,8 @@
 # This Software is released under the GPL license detailed
 # in the file "license.txt" in the top-level IonControl directory
 # *****************************************************************
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 import PyQt5.uic
 
 from .GlobalVariablesModel import GlobalVariablesModel, MagnitudeSpinBoxGridDelegate, GridDelegate
@@ -16,6 +17,7 @@ from copy import copy
 
 uipath = os.path.join(os.path.dirname(__file__), '..', r'ui/GlobalVariables.ui')
 Form, Base = PyQt5.uic.loadUiType(uipath)
+
 
 class GlobalVariablesUi(Form, Base):
     """Class for displaying, adding, and modifying global variables"""
@@ -56,6 +58,7 @@ class GlobalVariablesUi(Form, Base):
         Form.setupUi(self, parent)
         self.model = GlobalVariablesModel(self.config, self._globalDict_)
         self.model.showGrid = self.config.get(self.configName+".showGrid", True)
+
         self.showGridButton.setChecked( self.model.showGrid )
 
         self.view.setModel(self.model)
@@ -72,6 +75,7 @@ class GlobalVariablesUi(Form, Base):
 
         #signals
         self.newNameEdit.returnPressed.connect( self.onAddVariable )
+        self.searchNameEdit.textChanged.connect( self.onSearch )
         self.addButton.clicked.connect( self.onAddVariable )
         self.dropButton.clicked.connect( self.view.onDelete )
         self.collapseAllButton.clicked.connect( self.view.collapseAll )
@@ -177,6 +181,28 @@ class GlobalVariablesUi(Form, Base):
         self.addCategories(categories)
         blankInd = self.categoriesListComboBox.findText('', QtCore.Qt.MatchExactly)
         self.categoriesListComboBox.setCurrentIndex(blankInd)
+    
+    def onSearch(self):
+        """Filters the list of global variables listed based on the search criteria"""
+        # searchPhrase = str(self.searchNameEdit.text())
+        # self.proxyModel.setSearchPhrase(searchPhrase)
+        searchPhrase = str(self.searchNameEdit.text())
+        searchPhrase = searchPhrase.lower()
+
+        parentIndex = QtCore.QModelIndex()  # Use an invalid parent index
+
+        for row in range(self.model.rowCount(parentIndex)):
+            index = self.model.index(row, 0, parentIndex)
+
+            for childRow in range(self.model.rowCount(index)):
+                childIndex = self.model.index(childRow, 0, index)
+                name = self.model.data(childIndex, QtCore.Qt.DisplayRole).lower()
+
+                # Modify this condition to change the search criteria
+                if searchPhrase in name:
+                    self.view.setRowHidden(childRow, index, False)
+                else:
+                    self.view.setRowHidden(childRow, index, True)
 
     def saveConfig(self):
         """save gui configuration state and _globalDict_"""
