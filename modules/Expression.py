@@ -80,7 +80,7 @@ class Parser:
     tokens = (
         'NAME','INT','FLOAT','POW', 'MOD', 'GT', 'GTE', 'LT', 'LTE',
         'EQ', 'NEQ', 'PLUS','MINUS','TIMES','DIVIDE','EQUALS',
-        'LPAREN','RPAREN','COMMA','RBRACK','LBRACK',
+        'LPAREN','RPAREN','COMMA','RBRACK','LBRACK','MICRO',
         'RBRACE','LBRACE','COLON', 'STRING'
         )
 
@@ -99,7 +99,7 @@ class Parser:
     t_EQUALS  = r'='
     t_LPAREN  = r'\('
     t_RPAREN  = r'\)'
-    t_NAME    = r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t_NAME    = r'[a-zA-Z_\u03BC][a-zA-Z0-9_\u03BC]*'
     t_COMMA   = r','
     t_LBRACK  = r'\['
     t_RBRACK  = r'\]'
@@ -111,6 +111,11 @@ class Parser:
         r'[\'|"]([^\'"]+)[\'|"]'
         t.value = str(t.value[1:-1])
         return t
+    
+    def t_MICRO(self, t):
+        r'\u03BC'
+        return t
+
 
     def t_FLOAT(self, t):
         r'\d*((\.\d*)([eE][+-]?\d+)?|([eE][+-]?\d+))'
@@ -304,6 +309,7 @@ class Parser:
         self.useFloat = useFloat
         self.variableCM = ChainMap(variabledict, self.defaultVarCM)
         self.functionCM = ChainMap(functiondict, self.defaultFuncCM)
+        s = s.replace(r'µ','u')
         self.parser.parse(s, lexer=self.lexer)
         if listDependencies:
             return self.val, self.dependencies
@@ -314,6 +320,7 @@ class Parser:
         self.useFloat = useFloat
         self.variableCM = ChainMap(variabledict, self.defaultVarCM)
         self.functionCM = ChainMap(functiondict, self.defaultFuncCM)
+        s = s.replace(r'µ','u')
         self.parser.parse(s, lexer=self.lexer)
         if isinstance(self.val, bool):
             if self.val:
