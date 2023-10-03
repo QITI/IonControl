@@ -2,7 +2,7 @@
 # IonControl:  Copyright 2016 Sandia Corporation
 # This Software is released under the GPL license detailed
 # in the file "license.txt" in the top-level IonControl directory
-# *****************************************************************
+# *****************************************************************♠
 from collections import OrderedDict
 
 import logging
@@ -721,7 +721,7 @@ awg_singleReplayMode = project.isEnabled('hardware', 'QITI AWG Single Replay Mod
 if awg_singleReplayMode:
     try:
         from spcm.spcm import DrvHandle, GatedReplayMode, SingleReplayMode, SingleReplayRestartMode
-        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK#, SPCM_XMODE
+        from spcm.spcm import SPC_CM, SPC_TM, SPC_TMASK, SPCM_XMODE
         import numpy as np
         import h5py
 
@@ -767,8 +767,8 @@ if awg_singleReplayMode:
 
             self.d.trig_or_mask = SPC_TMASK.SPC_TMASK_EXT0  # use external trigger 0
 
-            # Multi-purpose digitial IO 0 output the run state
-            # self.d.x0_mode = SPCM_XMODE.SPCM_XMODE_RUNSTATE
+            # Enable digital output for channel 1
+            self.d.x1_mode = SPCM_XMODE.SPCM_XMODE_DIGOUT | SPCM_XMODE.SPCM_XMODE_DIGOUTSRC_CH1 | SPCM_XMODE.SPCM_XMODE_DIGOUTSRC_BIT15
 
             # self.initializeChannelsToExternals()
             self.initOutput()
@@ -791,18 +791,26 @@ if awg_singleReplayMode:
                     #waveform = self.database['{}'.format(parameter)][:]
                     waveform_channel_1_filename = self.data_dir + "awg_{}.npy".format(parameter)
                     waveform_channel_2_filename = self.data_dir + "awg_channel_2_{}.npy".format(parameter)
+
+                    waveform_channel_digital_filename = self.data_dir + "awg_channel_digital_{}.npy".format(parameter)
+
                     waveform_channel_1 = np.load(waveform_channel_1_filename)
                     if os.path.isfile(waveform_channel_2_filename):
                         waveform_channel_2 = np.load(waveform_channel_2_filename) 
                     else:
                         waveform_channel_2 = waveform_channel_1*0
 
+                    if os.path.isfile(waveform_channel_digital_filename):
+                        waveform_channel_digital = np.load(waveform_channel_digital_filename)
+                    else:
+                        waveform_channel_digital = np.zeros_like(waveform_channel_1, dtype=bool)
+
                     print("loaded")
                     #print(waveform)
                     n = waveform_channel_1.shape[0]
                     print(n)
                     self.d.mem_size = n
-                    self.d.transfer_data([waveform_channel_1,waveform_channel_2])
+                    self.d.transfer_data([waveform_channel_1,waveform_channel_2], [waveform_channel_digital])
                     self.d.start()
                     print("started")
 
