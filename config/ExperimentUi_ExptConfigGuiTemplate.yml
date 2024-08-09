@@ -105,6 +105,12 @@ hardware:
     fields:
         ipAddress: str
         port: str
+  
+  QITI Four rod AD5676_MDT693B DC Controller:
+    description: Interface with AD5676 DAC board and MDT693B DC controller. Check github.com/QITI/QITI_4rod_DAC
+    fields:
+        ipAddress: str
+        port: str
 
   QITI Four Rod Oven Controller:
     description: Interface with the BK precision power supply via Rpi. Check https://github.com/QITI/four_rod_oven_controller

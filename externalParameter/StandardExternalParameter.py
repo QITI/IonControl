@@ -231,6 +231,74 @@ if DC_Controller_Enabled:
             return instrument_list
 
 
+AD5676_MDT693B_DC_Controller_Enabled = project.isEnabled('hardware', 'QITI Four rod AD5676_MDT693B DC Controller')
+
+if AD5676_MDT693B_DC_Controller_Enabled:
+    try:
+        from QITI_4rod_DAC.four_rod_AD5676_MDT693B_DC_controller_client import FourRodAD5676MDT693BDCControllerClient
+        from QITI_4rod_DAC.four_rod_AD5676_MDT693B_DC_controller_channels import *
+    except ImportError:
+        importErrorPopup('QITI Four rod AD5676_MDT693B DC Controller')
+
+
+    class AD5676_MDT693B_DCVoltageControl(ExternalParameterBase):
+        """
+        Control the voltages on rods and needles for the four rod trap using AD5676 DAC and MDT693B Thorlabs piezo driver
+        """
+        className = "Four rod AD5676_MDT693B DC Voltage Control"
+        _outputChannels = OrderedDict([
+            ('Needle_1_Voltage', 'V'),
+            ('Needle_2_Voltage', 'V'),
+            ('Rod_1_Voltage', 'V'),
+            ('Rod_2_Voltage', 'V'),
+            ('Rod_3_Voltage', 'V'),
+            ('Rod_4_Voltage', 'V')])
+
+        _outputLookup = {
+            'Needle_1_Voltage': CHANNEL_N1,
+            'Needle_2_Voltage': CHANNEL_N2,
+            'Rod_1_Voltage': CHANNEL_R1,
+            'Rod_2_Voltage': CHANNEL_R2,
+            'Rod_3_Voltage': CHANNEL_R3,
+            'Rod_4_Voltage': CHANNEL_R4
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Four rod AD5676_MDT693B DC Controller')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+            port = instrument.get('port')
+            self.dc_client = FourRodAD5676MDT693BDCControllerClient(address=ip_addr + ':' + port)
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            v_value = v.m_as('V')
+            v_value = float(v_value)
+            v_channel = self._outputLookup[channel]
+            print(v_channel, v_value)
+            self.dc_client.set_volt(v_channel, v_value)
+            return v
+
+        #TODO: implement the get voltage function
+        def getExternalValue(self, channel=None):
+            v_channel = self._outputLookup[channel]
+            voltage = self.dc_client.get_volt(v_channel)
+            voltage = round(voltage, 4)
+            return Q(voltage, 'V')
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Four rod AD5676_MDT693B DC Controller').keys()
+            return instrument_list
+
+
 four_rod_oven_controller_enabled = project.isEnabled('hardware', 'QITI Four Rod Oven Controller')
 
 if four_rod_oven_controller_enabled:
@@ -715,6 +783,65 @@ if toptica935Enabled:
             project = getProject()
             instrument_list = project.hardware.get("QITI Toptica 935nm").keys()
             return instrument_list
+        
+toptica780Enabled = project.isEnabled('hardware', 'QITI Toptica 780nm')
+
+if toptica780Enabled:
+    try:
+        from toptica.lasersdk.client import Client as TopticaClient, NetworkConnection as TopticaNetworkConnection
+
+    except ImportError as err:
+        print(err)
+        importErrorPopup('780nm Toptica SDK')
+
+
+    class toptica780Control(ExternalParameterBase):
+        className = "QITI Toptica 780nm"
+        _outputChannels = OrderedDict([
+            ("laser_current", 'mA'),
+            ("piezo_voltage", 'V'),
+        ])
+
+        _outputLookup = {
+            'laser_current': "laser2:dl:cc:current-set",
+            'piezo_voltage': "laser2:dl:pc:voltage-set",
+        }
+
+        def __init__(self, name, config, globalDict, instrument):
+            logger = logging.getLogger(__name__)
+            ExternalParameterBase.__init__(self, name, config, globalDict)
+            project = getProject()
+            instrument_list = project.hardware.get('QITI Toptica 780nm')
+            instrument = instrument_list[instrument]
+            ip_addr = instrument.get('ipAddress')
+
+            # self.initializeChannelsToExternals()
+            self.initOutput()
+            self.client = TopticaClient(TopticaNetworkConnection(ip_addr))
+            self.client.open()
+            self.qtHelper = qtHelper()
+            self.newData = self.qtHelper.newData
+
+        def setValue(self, channel, v):
+            toptica_param = self._outputLookup[channel]
+            unit = self._outputChannels[channel]
+            parameter = v.m_as(unit)
+            parameter = float(parameter)
+            self.client.set(toptica_param, parameter)
+            return v
+
+        def getExternalValue(self, channel=None):
+            toptica_param = self._outputLookup[channel]
+            parameter = self.client.get(toptica_param)
+            unit = self._outputChannels[channel]
+            return Q(parameter, unit)
+
+        def connectedInstruments(self):
+            project = getProject()
+            instrument_list = project.hardware.get("QITI Toptica 780nm").keys()
+            return instrument_list
+
+
 
 awg_singleReplayMode = project.isEnabled('hardware', 'QITI AWG Single Replay Mode')
 

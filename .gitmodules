@@ -21,3 +21,6 @@
 [submodule "QITI_TTL_voltage_switcher"]
 	path = QITI_TTL_voltage_switcher
 	url = https://github.com/QITI/TTL_voltage_switcher
+[submodule "QITI_4rod_DAC"]
+	path = QITI_4rod_DAC
+	url = https://github.com/QITI/QITI_4rod_DAC
