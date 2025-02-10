@@ -132,6 +132,7 @@ class configshelve:
                 self.dbContent[record.key] = record.value
                 self.dbDigest[record.key] = record.digest
             except Exception as e:
+                # print(record.key, record.value)
                 logging.getLogger(__name__).exception(e)
                 logging.getLogger(__name__).warning("configuration parameter '{0}' cannot be read from database. ({1})".format(record.key, e))
 
@@ -144,7 +145,7 @@ class configshelve:
             try:
                 self.engine.execute("alter table {} add column active boolean".format(PgShelveEntry.__tablename__))
                 self.engine.execute("update {} set active=True".format(PgShelveEntry.__tablename__))
-                trans.commit();
+                trans.commit()
             except ProgrammingError as e:
                 trans.rollback()
                 if e.code != 'f405':  # f405 appears if the column already exists

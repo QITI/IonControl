@@ -382,7 +382,7 @@ if rfcontroller_enabled:
     class RFController(ExternalParameterBase):
         className = "RF Controller"
         _outputChannels = OrderedDict([
-            #("frequency_cooling_eom", 'MHz'),
+            ("frequency_cooling_eom", 'MHz'),
             ("frequency_detection_aom", 'MHz'),
             ("frequency_repump_eom", 'MHz'),
             ("frequency_cooling_aom", 'MHz'),
@@ -393,7 +393,7 @@ if rfcontroller_enabled:
             ("frequency_four_rod_raman_2_lo", 'MHz'),
             ("frequency_four_rod_dmd_optpump_eom", 'MHz'),
             ("frequency_four_rod_raman_1_aom", 'MHz'),
-            #("power_cooling_eom", ''),
+            ("power_cooling_eom", ''),
             ("power_detection_aom", ''),
             ("power_repump_eom", ''),
             ("power_cooling_aom", ''),
@@ -404,7 +404,7 @@ if rfcontroller_enabled:
             ("power_four_rod_weak_optical_pumping", ''),
             ("power_four_rod_dmd_optpump_eom", ''),
             ("power_four_rod_raman_1_aom", ''),
-            #("output_state_cooling_eom",''),
+            ("output_state_cooling_eom",''),
             ("output_state_microwave_modulation", ''),
             ("output_state_four_rod_raman_2_lo", ''),
             ("vernier_dmd_aom", ''),
